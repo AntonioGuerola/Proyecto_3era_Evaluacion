@@ -12,11 +12,11 @@ import java.util.List;
 
 public class UserDAO<T extends User> implements DAO<User, Integer> {
     private T _type;
-    private final static String INSERT = "INSERT INTO ? (user, password, name, surname, mail, bornDate, img) VALUES (?, ?, ?, ?, ?, ?, ?)";
-    private final static String UPDATE = "UPDATE ? SET user = ?, password = ?, img = ? WHERE id=? ";
-    private final static String FINDUSERBYID = "SELECT x.id, x.user FROM ? AS x WHERE x.id = ?";
-    private final static String FINDALLUSER = "SELECT x.id, x.user FROM ? AS x";
-    private final static String DELETE = "DELETE FROM ? WHERE id = ?";
+    private static String INSERT = "INSERT INTO TABLE (user, password, name, surname, email, born_date, image) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    private static String UPDATE = "UPDATE TABLE SET user = ?, password = ?, image = ? WHERE id=? ";
+    private static String FINDUSERBYID = "SELECT x.id, x.user FROM TABLE AS x WHERE x.id = ?";
+    private static String FINDALLUSER = "SELECT x.id, x.user FROM TABLE AS x";
+    private static String DELETE = "DELETE FROM TABLE WHERE id = ?";
 
     @Override
     public User save(User entity) {
@@ -24,19 +24,22 @@ public class UserDAO<T extends User> implements DAO<User, Integer> {
         if (entity == null) return result;
         if (entity.getId() == null) {
             //INSERT
+            if (entity instanceof Modeler) {
+                INSERT = INSERT.replaceAll("TABLE", "Modeler");
+                UPDATE = UPDATE.replaceAll("TABLE", "Modeler");
+            } else {
+                INSERT = INSERT.replaceAll("TABLE", "Client");
+                UPDATE = UPDATE.replaceAll("TABLE", "Client");
+            }
             try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS)) {
-                if (entity instanceof Modeler) {
-                    pst.setString(1, "modeler");
-                } else {
-                    pst.setString(1, "client");
-                }
-                pst.setString(2, entity.getUser());
-                pst.setString(3, entity.getPassword());
-                pst.setString(4, entity.getName());
-                pst.setString(5, entity.getSurname());
-                pst.setString(6, entity.getMail());
-                pst.setDate(7, Date.valueOf(entity.getBornDate()));
-                pst.setString(8, entity.getImg());
+
+                pst.setString(1, entity.getUser());
+                pst.setString(2, entity.getPassword());
+                pst.setString(3, entity.getName());
+                pst.setString(4, entity.getSurname());
+                pst.setString(5, entity.getEmail());
+                pst.setDate(6, Date.valueOf(entity.getBorn_date()));
+                pst.setString(7, entity.getImage());
                 pst.executeUpdate();
 
                 //Si fuera autoincremental yo tendría que leer getGeneratedKeys() -> setId
@@ -51,18 +54,13 @@ public class UserDAO<T extends User> implements DAO<User, Integer> {
         } else {
             //UPDATE
             try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(UPDATE)) {
-                if (entity instanceof Modeler) {
-                    pst.setString(1, "modeler");
-                } else {
-                    pst.setString(1, "client");
-                }
-                pst.setString(2, entity.getUser());
-                pst.setString(3, entity.getPassword());
-                pst.setString(4, entity.getName());
-                pst.setString(5, entity.getSurname());
-                pst.setString(6, entity.getMail());
-                pst.setDate(7, Date.valueOf(entity.getBornDate()));
-                pst.setString(8, entity.getImg());
+                pst.setString(1, entity.getUser());
+                pst.setString(2, entity.getPassword());
+                pst.setString(3, entity.getName());
+                pst.setString(4, entity.getSurname());
+                pst.setString(5, entity.getEmail());
+                pst.setDate(6, Date.valueOf(entity.getBorn_date()));
+                pst.setString(7, entity.getImage());
                 pst.executeUpdate();
 
             } catch (SQLException e) {
@@ -75,12 +73,12 @@ public class UserDAO<T extends User> implements DAO<User, Integer> {
     @Override
     public User delete(User entity) {
         if (entity == null || entity.getId() == null) return entity;
+        if (entity instanceof Modeler) {
+            DELETE = DELETE.replaceAll("TABLE", "Modeler");
+        } else {
+            DELETE = DELETE.replaceAll("TABLE", "Client");
+        }
         try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(DELETE)) {
-            if (entity instanceof Modeler) {
-                pst.setString(1, "modeler");
-            } else {
-                pst.setString(1, "client");
-            }
             pst.setInt(2, entity.getId());
             pst.executeUpdate();
         } catch (SQLException e) {
@@ -98,14 +96,12 @@ public class UserDAO<T extends User> implements DAO<User, Integer> {
     @Override
     public List<User> findAll() {
         List<User> result = new ArrayList<>();
-
+        if (_type instanceof Modeler) {
+            FINDALLUSER = FINDALLUSER.replaceAll("TABLE", "Modeler");
+        } else {
+            FINDALLUSER = FINDALLUSER.replaceAll("TABLE", "Client");
+        }
         try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(FINDALLUSER)) {
-            if (_type instanceof Modeler) {
-                pst.setString(1, "modeler");
-            } else {
-                pst.setString(1, "client");
-            }
-
             ResultSet res = pst.executeQuery();
 
             while (res.next()) {
@@ -130,13 +126,13 @@ public class UserDAO<T extends User> implements DAO<User, Integer> {
 
     public User findUserById(Integer key) {
         User result = null;
+        if (_type instanceof Modeler) {
+            FINDALLUSER = FINDALLUSER.replaceAll("TABLE", "Modeler");
+        } else {
+            FINDALLUSER = FINDALLUSER.replaceAll("TABLE", "Client");
+        }
 
         try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(FINDUSERBYID)) {
-            if (_type instanceof Modeler) {
-                pst.setString(1, "modeler");
-            } else {
-                pst.setString(1, "client");
-            }
             pst.setInt(2, key);
             ResultSet res = pst.executeQuery();
             if (res.next()) {

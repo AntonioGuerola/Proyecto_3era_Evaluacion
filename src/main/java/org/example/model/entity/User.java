@@ -9,19 +9,18 @@ public class User{
     private String password;
     private String name;
     private String surname;
-    private String mail;
-    private LocalDate bornDate;
-    private String img;
+    private String email;
+    private LocalDate born_date;
+    private String image;
 
-    public User(Integer id, String user, String password, String name, String surname, String mail, LocalDate bornDate, String img) {
-        this.id = id;
+    public User(String user, String password, String name, String surname, String email, LocalDate born_date, String image) {
         this.user = user;
         this.password = password;
         this.name = name;
         this.surname = surname;
-        this.mail = mail;
-        this.bornDate = bornDate;
-        this.img = img;
+        this.email = email;
+        this.born_date = born_date;
+        this.image = image;
     }
 
     public User(){
@@ -67,28 +66,28 @@ public class User{
         this.surname = surname;
     }
 
-    public String getMail() {
-        return mail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public LocalDate getBornDate() {
-        return bornDate;
+    public LocalDate getBorn_date() {
+        return born_date;
     }
 
-    public void setBornDate(LocalDate bornDate) {
-        this.bornDate = bornDate;
+    public void setBorn_date(LocalDate born_date) {
+        this.born_date = born_date;
     }
 
-    public String getImg() {
-        return img;
+    public String getImage() {
+        return image;
     }
 
-    public void setImg(String img) {
-        this.img = img;
+    public void setImage(String image) {
+        this.image = image;
     }
 
     @Override
@@ -112,9 +111,9 @@ public class User{
                 ", password='" + password + '\'' +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
-                ", mail='" + mail + '\'' +
-                ", bornDate=" + bornDate +
-                ", img='" + img + '\'' +
+                ", email='" + email + '\'' +
+                ", born_date=" + born_date +
+                ", image='" + image + '\'' +
                 '}';
     }
 }

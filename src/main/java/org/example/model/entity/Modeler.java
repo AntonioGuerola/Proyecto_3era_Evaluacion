@@ -1,11 +1,13 @@
 package org.example.model.entity;
 
 
+import java.time.LocalDate;
+
 public class Modeler extends User{
 
 
-    public Modeler(Integer id, String user, String password, String name, String surname, String mail, java.sql.Date bornDate, String img) {
-        super(id,user,password,name,surname,mail,bornDate,img);
+    public Modeler(String user, String password, String name, String surname, String email, LocalDate born_date, String image) {
+        super(user,password,name,surname,email,born_date,image);
     }
     public Modeler(){
     }
