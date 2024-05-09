@@ -14,8 +14,7 @@ public class Model {
     private ModelCategory category;
     private Modeler modeler;
 
-    public Model(int id, String name, double price, String description, double rating, String image, String model, ModelCategory category, Modeler modeler) {
-        this.id = id;
+    public Model(String name, double price, String description, double rating, String image, String model, ModelCategory category, Modeler modeler) {
         this.name = name;
         this.price = price;
         this.description = description;

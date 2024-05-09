@@ -12,11 +12,22 @@ import java.util.List;
 
 public class UserDAO<T extends User> implements DAO<User, Integer> {
     private T _type;
-    private static String INSERT = "INSERT INTO TABLE (user, password, name, surname, email, born_date, image) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    private static String INSERT = "INSERT INTO TABLE (user, password, name, surname, email, bornDate, image) VALUES (?, ?, ?, ?, ?, ?, ?)";
     private static String UPDATE = "UPDATE TABLE SET user = ?, password = ?, image = ? WHERE id=? ";
-    private static String FINDUSERBYID = "SELECT x.id, x.user FROM TABLE AS x WHERE x.id = ?";
+    private final static String FINDBYID = "SELECT x.id, x.name, x.price, x.id_modeler, x.user_modeler FROM TABLE AS x WHERE x.id=?";
+    private final static String FINDUSERBYUSER = "SELECT x.id, x.user FROM TABLE AS x WHERE x.user = ?";
     private static String FINDALLUSER = "SELECT x.id, x.user FROM TABLE AS x";
     private static String DELETE = "DELETE FROM TABLE WHERE id = ?";
+
+    public UserDAO(Class<T> clazz) {
+        try {
+            this._type = clazz.newInstance();
+        } catch (InstantiationException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @Override
     public User save(User entity) {
@@ -38,7 +49,7 @@ public class UserDAO<T extends User> implements DAO<User, Integer> {
                 pst.setString(3, entity.getName());
                 pst.setString(4, entity.getSurname());
                 pst.setString(5, entity.getEmail());
-                pst.setDate(6, Date.valueOf(entity.getBorn_date()));
+                pst.setDate(6, Date.valueOf(entity.getBornDate()));
                 pst.setString(7, entity.getImage());
                 pst.executeUpdate();
 
@@ -59,7 +70,7 @@ public class UserDAO<T extends User> implements DAO<User, Integer> {
                 pst.setString(3, entity.getName());
                 pst.setString(4, entity.getSurname());
                 pst.setString(5, entity.getEmail());
-                pst.setDate(6, Date.valueOf(entity.getBorn_date()));
+                pst.setDate(6, Date.valueOf(entity.getBornDate()));
                 pst.setString(7, entity.getImage());
                 pst.executeUpdate();
 
@@ -67,6 +78,11 @@ public class UserDAO<T extends User> implements DAO<User, Integer> {
                 e.printStackTrace();
             }
         }
+        INSERT = INSERT.replaceAll("Modeler", "TABLE");
+        UPDATE = UPDATE.replaceAll("Modeler", "TABLE");
+        INSERT = INSERT.replaceAll("Client", "TABLE");
+        UPDATE = UPDATE.replaceAll("Client", "TABLE");
+
         return result;
     }
 
@@ -79,7 +95,7 @@ public class UserDAO<T extends User> implements DAO<User, Integer> {
             DELETE = DELETE.replaceAll("TABLE", "Client");
         }
         try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(DELETE)) {
-            pst.setInt(2, entity.getId());
+            pst.setInt(1, entity.getId());
             pst.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -90,7 +106,36 @@ public class UserDAO<T extends User> implements DAO<User, Integer> {
 
     @Override
     public User findById(Integer key) {
-        return null;
+        User result = null;
+
+        if (_type instanceof Modeler) {
+            try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(FINDBYID.replace("TABLE", "Modeler"))) {
+                pst.setInt(1, key);
+                ResultSet res = pst.executeQuery();
+                if (res.next()) {
+                    result = new Modeler();
+                    result.setId(res.getInt("Id"));
+                    result.setUser(res.getString("User"));
+                }
+                res.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } else {
+            try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(FINDBYID.replace("TABLE", "Client"))) {
+                pst.setInt(1, key);
+                ResultSet res = pst.executeQuery();
+                if (res.next()) {
+                    result = new Client();
+                    result.setId(res.getInt("Id"));
+                    result.setUser(res.getString("User"));
+                }
+                res.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
     }
 
     @Override
@@ -121,27 +166,42 @@ public class UserDAO<T extends User> implements DAO<User, Integer> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        FINDALLUSER = FINDALLUSER.replaceAll("Modeler", "TABLE");
+        FINDALLUSER = FINDALLUSER.replaceAll("Client", "TABLE");
+
         return result;
     }
 
-    public User findUserById(Integer key) {
+    public User findUserByUser(String key) {
         User result = null;
         if (_type instanceof Modeler) {
-            FINDALLUSER = FINDALLUSER.replaceAll("TABLE", "Modeler");
+            try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(FINDUSERBYUSER.replace("TABLE", "Modeler"))) {
+                pst.setString(1, key);
+                ResultSet res = pst.executeQuery();
+                if (res.next()) {
+                    result = new Modeler();
+                    result.setId(res.getInt("id"));
+                    result.setUser(res.getString("user"));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         } else {
-            FINDALLUSER = FINDALLUSER.replaceAll("TABLE", "Client");
+            try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(FINDUSERBYUSER.replace("TABLE", "Client"))) {
+                pst.setString(1, key);
+                ResultSet res = pst.executeQuery();
+                if (res.next()) {
+                    result = new Client();
+                    result.setId(res.getInt("id"));
+                    result.setUser(res.getString("user"));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
 
-        try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(FINDUSERBYID)) {
-            pst.setInt(2, key);
-            ResultSet res = pst.executeQuery();
-            if (res.next()) {
-                result.setId(res.getInt("id"));
-                result.setUser(res.getString("user"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+
         return result;
     }
 
@@ -150,9 +210,7 @@ public class UserDAO<T extends User> implements DAO<User, Integer> {
 
     }
 
-    public static UserDAO build() {
-        return new UserDAO();
-    }
+
 }
 
 

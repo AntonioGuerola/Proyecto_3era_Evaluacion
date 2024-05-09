@@ -7,8 +7,8 @@ import java.util.Objects;
 public class Client extends User{
     private Basket basket;
 
-    public Client(String user, String password, String name, String surname, String email, LocalDate born_date, String image, Basket basket) {
-        super(user,password,name,surname,email,born_date,image);
+    public Client(String user, String password, String name, String surname, String email, LocalDate bornDate, String image, Basket basket) {
+        super(user,password,name,surname,email,bornDate,image);
         this.basket = basket;
     }
 

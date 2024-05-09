@@ -10,16 +10,16 @@ public class User{
     private String name;
     private String surname;
     private String email;
-    private LocalDate born_date;
+    private LocalDate bornDate;
     private String image;
 
-    public User(String user, String password, String name, String surname, String email, LocalDate born_date, String image) {
+    public User(String user, String password, String name, String surname, String email, LocalDate bornDate, String image) {
         this.user = user;
         this.password = password;
         this.name = name;
         this.surname = surname;
         this.email = email;
-        this.born_date = born_date;
+        this.bornDate = bornDate;
         this.image = image;
     }
 
@@ -74,12 +74,12 @@ public class User{
         this.email = email;
     }
 
-    public LocalDate getBorn_date() {
-        return born_date;
+    public LocalDate getBornDate() {
+        return bornDate;
     }
 
-    public void setBorn_date(LocalDate born_date) {
-        this.born_date = born_date;
+    public void setBorn_date(LocalDate bornDate) {
+        this.bornDate = bornDate;
     }
 
     public String getImage() {
@@ -112,7 +112,7 @@ public class User{
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", email='" + email + '\'' +
-                ", born_date=" + born_date +
+                ", bornDate=" + bornDate +
                 ", image='" + image + '\'' +
                 '}';
     }
