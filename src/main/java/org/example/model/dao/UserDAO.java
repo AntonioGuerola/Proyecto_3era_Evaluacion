@@ -13,9 +13,9 @@ import java.util.List;
 public class UserDAO<T extends User> implements DAO<User, Integer> {
     private T _type;
     private static String INSERT = "INSERT INTO TABLE (user, password, name, surname, email, bornDate, image) VALUES (?, ?, ?, ?, ?, ?, ?)";
-    private static String UPDATE = "UPDATE TABLE SET user = ?, password = ?, image = ? WHERE id=? ";
-    private final static String FINDBYID = "SELECT x.id, x.name, x.price, x.id_modeler, x.user_modeler FROM TABLE AS x WHERE x.id=?";
-    private final static String FINDUSERBYUSER = "SELECT x.id, x.user FROM TABLE AS x WHERE x.user = ?";
+    private static String UPDATE = "UPDATE TABLE SET user = ?, password = ?, bornDate = ?, image = ? WHERE id=? ";
+    private static String FINDBYID = "SELECT x.id, x.user, x.bornDate FROM TABLE AS x WHERE x.id=?";
+    private static String FINDUSERBYUSER = "SELECT x.id, x.user FROM TABLE AS x WHERE x.user = ?";
     private static String FINDALLUSER = "SELECT x.id, x.user FROM TABLE AS x";
     private static String DELETE = "DELETE FROM TABLE WHERE id = ?";
 
@@ -35,14 +35,8 @@ public class UserDAO<T extends User> implements DAO<User, Integer> {
         if (entity == null) return result;
         if (entity.getId() == null) {
             //INSERT
-            if (entity instanceof Modeler) {
-                INSERT = INSERT.replaceAll("TABLE", "Modeler");
-                UPDATE = UPDATE.replaceAll("TABLE", "Modeler");
-            } else {
-                INSERT = INSERT.replaceAll("TABLE", "Client");
-                UPDATE = UPDATE.replaceAll("TABLE", "Client");
-            }
-            try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS)) {
+            String insertQuery = INSERT.replace("TABLE", getTableName());
+            try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS)) {
 
                 pst.setString(1, entity.getUser());
                 pst.setString(2, entity.getPassword());
@@ -64,14 +58,21 @@ public class UserDAO<T extends User> implements DAO<User, Integer> {
             }
         } else {
             //UPDATE
-            try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(UPDATE)) {
+            String updateQuery = UPDATE.replace("TABLE", getTableName());
+            try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(updateQuery)) {
                 pst.setString(1, entity.getUser());
-                pst.setString(2, entity.getPassword());
-                pst.setString(3, entity.getName());
-                pst.setString(4, entity.getSurname());
-                pst.setString(5, entity.getEmail());
-                pst.setDate(6, Date.valueOf(entity.getBornDate()));
-                pst.setString(7, entity.getImage());
+                if (entity.getPassword() != null) {
+                    pst.setString(2, entity.getPassword());
+                } else {
+                    pst.setNull(2, Types.INTEGER);
+                }
+                if (entity.getBornDate() != null) {
+                    pst.setDate(3, Date.valueOf(entity.getBornDate()));
+                } else {
+                    pst.setNull(3, Types.DATE);
+                }
+                pst.setString(4, entity.getImage());
+                pst.setInt(5, entity.getId());
                 pst.executeUpdate();
 
             } catch (SQLException e) {
@@ -84,6 +85,14 @@ public class UserDAO<T extends User> implements DAO<User, Integer> {
         UPDATE = UPDATE.replaceAll("Client", "TABLE");
 
         return result;
+    }
+
+    private String getTableName() {
+        if (_type instanceof Modeler) {
+            return "Modeler";
+        } else {
+            return "Client";
+        }
     }
 
     @Override
@@ -101,6 +110,10 @@ public class UserDAO<T extends User> implements DAO<User, Integer> {
             e.printStackTrace();
             entity = null;
         }
+
+        DELETE = DELETE.replaceAll("Modeler", "TABLE");
+        DELETE = DELETE.replaceAll("Client", "TABLE");
+
         return entity;
     }
 
@@ -116,6 +129,10 @@ public class UserDAO<T extends User> implements DAO<User, Integer> {
                     result = new Modeler();
                     result.setId(res.getInt("Id"));
                     result.setUser(res.getString("User"));
+                    Date bornDate = res.getDate("bornDate");
+                    if (bornDate != null) {
+                        result.setBornDate(bornDate.toLocalDate());
+                    }
                 }
                 res.close();
             } catch (SQLException e) {
@@ -129,12 +146,20 @@ public class UserDAO<T extends User> implements DAO<User, Integer> {
                     result = new Client();
                     result.setId(res.getInt("Id"));
                     result.setUser(res.getString("User"));
+                    Date bornDate = res.getDate("bornDate");
+                    if (bornDate != null) {
+                        result.setBornDate(bornDate.toLocalDate());
+                    }
                 }
                 res.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
+
+        FINDBYID = FINDBYID.replaceAll("Modeler", "TABLE");
+        FINDBYID = FINDBYID.replaceAll("Client", "TABLE");
+
         return result;
     }
 
@@ -201,6 +226,8 @@ public class UserDAO<T extends User> implements DAO<User, Integer> {
             }
         }
 
+        FINDUSERBYUSER = FINDUSERBYUSER.replaceAll("Modeler", "TABLE");
+        FINDUSERBYUSER = FINDUSERBYUSER.replaceAll("Client", "TABLE");
 
         return result;
     }

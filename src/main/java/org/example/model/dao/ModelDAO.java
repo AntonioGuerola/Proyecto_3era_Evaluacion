@@ -142,6 +142,7 @@ public class ModelDAO implements DAO <Model, Integer>{
                     model.setId(res.getInt("id"));
                     model.setModeler((Modeler) user);
                     model.setName(res.getString("name"));
+                    model.setPrice(res.getDouble("price"));
                     result.add(model);
                 }
             }

@@ -13,11 +13,11 @@ import java.util.Map;
 
 public class BasketDAO implements DAO<Basket, Integer> {
 
-    private static final String INSERT = "INSERT INTO basket (finalPrice ) VALUES (?)";
-    private static final String INSERTMODELS = "INSERT INTO incluye (cantidad,id_basket,id_model ) VALUES (?,?,?)";
+    private static final String INSERT = "INSERT INTO basket (finalPrice) VALUES (?)";
+    private static final String INSERTMODELS = "INSERT INTO incluye (cantidad,id_basket,id_model) VALUES (?,?,?)";
     private static final String UPDATE = "DELETE FROM incluye WHERE id_basket=?";
     private static final String DELETE = "DELETE FROM basket WHERE id = ?";
-    private static final String FINDBYID = "SELECT id, finalPrice, model FROM basket WHERE id = ?";
+    private static final String FINDBYID = "SELECT id, finalPrice FROM basket WHERE id = ?";
     private static final String FINDALL = "SELECT id, finalPrice, model FROM basket";
     private static final String FINDBYNAME = "SELECT id, finalPrice, model FROM basket WHERE name LIKE ?";
     //private static final String INSERTMODELINBASKET = "SELECT m.* FROM model m INNER JOIN incluye i ON m.id = i.id_model WHERE i.id_basket = ?";
