@@ -14,7 +14,7 @@ import java.util.Map;
 public class BasketDAO implements DAO<Basket, Integer> {
 
     private static final String INSERT = "INSERT INTO basket (finalPrice) VALUES (?)";
-    private static final String INSERTMODELS = "INSERT INTO incluye (cantidad,id_basket,id_model) VALUES (?,?,?)";
+    private static final String INSERTMODELS = "INSERT INTO incluye (id_basket,id_model) VALUES (?,?,?)";
     private static final String UPDATE = "DELETE FROM incluye WHERE id_basket=?";
     private static final String DELETE = "DELETE FROM basket WHERE id = ?";
     private static final String FINDBYID = "SELECT id, finalPrice FROM basket WHERE id = ?";
@@ -41,13 +41,12 @@ public class BasketDAO implements DAO<Basket, Integer> {
                 //en el update por simplificar, boora primero todos los modelos.
 
                 //Toca insertar los modelos que tiene la cesta
-                for (Map.Entry<Model, Integer> entry : basket.getModels().entrySet()) {
-                    Model model = entry.getKey();
-                    int quantity = entry.getValue();
+                for (Map.Entry<Integer, Model> entry : basket.getModels().entrySet()) {
+                    Integer id = entry.getKey();
+                    Model model = entry.getValue();
                     try (PreparedStatement pst2 = conn.prepareStatement(INSERTMODELS)) {
-                        pst.setInt(1, quantity);
-                        pst.setInt(2, basket.getId());
-                        pst.setInt(3, model.getId());
+                        pst.setInt(1, basket.getId());
+                        pst.setInt(2, model.getId());
                         pst.executeUpdate();
                     }
                 }
@@ -64,13 +63,12 @@ public class BasketDAO implements DAO<Basket, Integer> {
                 if (resultSet.next()) {
                     basket.setId(resultSet.getInt(1));
                 }
-                for (Map.Entry<Model, Integer> entry : basket.getModels().entrySet()) {
-                    Model model = entry.getKey();
-                    int quantity = entry.getValue();
+                for (Map.Entry<Integer, Model> entry : basket.getModels().entrySet()) {
+                    Integer id = entry.getKey();
+                    Model model = entry.getValue();
                     try (PreparedStatement pst2 = conn.prepareStatement(INSERTMODELS)) {
-                        pst.setInt(1, quantity);
-                        pst.setInt(2, basket.getId());
-                        pst.setInt(3, model.getId());
+                        pst.setInt(1, basket.getId());
+                        pst.setInt(2, model.getId());
                         pst.executeUpdate();
                     }
                 }

@@ -1,0 +1,17 @@
+
+‡
+java:S2095q"EUse try-with-resources or close this "UserDAO" in a "finally" clause.(ìïœx8ˆ·ƒ¸õ1J$0edbbaff-5f44-4ad5-8aac-f8955263c647
+‡
+java:S2095["EUse try-with-resources or close this "UserDAO" in a "finally" clause.(ìïœx8ş£‚¸õ1J$11759322-482d-4bce-8c31-54422e24a20b
+Ê
+java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(æÔ«÷şÿÿÿÿ8Ä‚¸õ1J$02d9dd27-bd03-437f-8f30-031e301f6311
+q
+java:S2695<"/This "PreparedStatement" only has 4 parameters.(ˆ¬Çh8Ï‚¸õ1J$d1c1bda8-2391-40b7-8a8f-ed70c2489bc2
+r
+java:S2695="/This "PreparedStatement" only has 4 parameters.(Ø—â8Ï‚¸õ1J$08024dea-0d56-4584-a460-3c783c84efdc
+w
+java:S2695>"/This "PreparedStatement" only has 4 parameters.(®‘ë¡ûÿÿÿÿ8Ï‚¸õ1J$49abb811-3734-4950-a864-1081ccb1e8f6
+r
+java:S2695?"/This "PreparedStatement" only has 4 parameters.(æéüç8Ğ‚¸õ1J$5ee9e112-87e7-4358-ad00-f12385b7961f
+w
+java:S2695@"/This "PreparedStatement" only has 4 parameters.(¥äëÉÿÿÿÿÿ8à¤É½õ1J$20618b38-b02a-4ed7-83b1-6bb608991b91

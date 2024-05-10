@@ -8,9 +8,9 @@ import java.util.Objects;
 public class Basket {
     private int id;
     private double finalPrice;
-    private HashMap<Model,Integer> models;
+    private HashMap<Integer,Model> models;
 
-    public Basket(int id, double finalPrice, HashMap<Model,Integer> models) {
+    public Basket(int id, double finalPrice, HashMap<Integer,Model> models) {
         this.id = id;
         this.finalPrice = finalPrice;
         this.models = models;
@@ -38,31 +38,38 @@ public class Basket {
         this.finalPrice = finalPrice;
     }
 
-    public HashMap<Model,Integer>getModels() {
+    public HashMap<Integer,Model>getModels() {
         return models;
     }
 
-    public void setModels(HashMap<Model,Integer> models) {
+    public void setModels(HashMap<Integer,Model> models) {
         this.models = models;
     }
 
-    public void addModel(Model model) {
-        if(models.containsKey(model)){
-            int currentQuantity = models.get(model);
-            models.put(model,currentQuantity+1);
-        }else{
-            models.put(model,1);
-        }
-    }
-    public void removeModel(Model model){
-        if(models.containsKey(model)){
-            int currentQuantity = models.get(model);
-            if(currentQuantity==1){
-                models.remove(model);
-            }else{
-                models.put(model,currentQuantity-1);
+    public boolean addModel(Model model) {
+        boolean result = false;
+        if (model != null && model.getId() > 0){
+            if(models == null){
+                models = new HashMap<>();
+            }
+            if (models.containsKey(model.getId())){
+                models.put(model.getId(), model);
+                result = true;
             }
         }
+        return result;
+    }
+    public boolean removeModel(Model model) {
+        boolean result = false;
+        if (model != null && model.getId() > 0) {
+            if (models != null) {
+                if (models.containsKey(model.getId())) {
+                    models.remove(model.getId());
+                    result = true;
+                }
+            }
+        }
+        return result;
     }
 
     @Override

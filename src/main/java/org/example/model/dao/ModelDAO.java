@@ -2,20 +2,18 @@ package org.example.model.dao;
 
 import org.example.model.connection.ConnectionMariaDB;
 import org.example.model.entity.Model;
+import org.example.model.entity.ModelCategory;
 import org.example.model.entity.Modeler;
 import org.example.model.entity.User;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ModelDAO implements DAO <Model, Integer>{
     private static final String INSERT ="INSERT INTO Model (name, price, description, rating, image, model, category, id_modeler, user_modeler) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    private static final String UPDATE ="UPDATE Model SET name = ?, price = ?, image = ? WHERE id = ?";
+    private static final String UPDATE ="UPDATE Model SET name = ?, price = ?, description = ?, image = ? WHERE id = ?";
     private static final String FINDALL ="SELECT mo.id, mo.name, mo.price, mo.id_modeler, mo.user_modeler FROM Model AS mo";
     private static final String FINDBYID ="SELECT mo.id, mo.name, mo.price, mo.id_modeler, mo.user_modeler FROM Model AS mo WHERE mo.id=?";
     private static final String FINDBYMODELER ="SELECT mo.id, mo.name, mo.price, mo.id_modeler, mo.user_modeler FROM Model AS mo WHERE mo.id_modeler = ?";
@@ -56,12 +54,8 @@ public class ModelDAO implements DAO <Model, Integer>{
                         pst.setString(1,model.getName());
                         pst.setDouble(2,model.getPrice());
                         pst.setString(3,model.getDescription());
-                        pst.setDouble(4,model.getRating());
-                        pst.setString(5,model.getImage());
-                        pst.setString(6,model.getModel());
-                        pst.setString(7,model.getCategory().name());
-                        pst.setInt(8,model.getModeler().getId());
-                        pst.setString(9,model.getModeler().getUser());
+                        pst.setString(4,model.getImage());
+                        pst.setInt(5, model.getId());
                         pst.executeUpdate();
                     }catch (SQLException e){
                         e.printStackTrace();
@@ -96,9 +90,10 @@ public class ModelDAO implements DAO <Model, Integer>{
                 if(res.next()){
                     Model model = new Model();
                     model.setId(res.getInt("id"));
-                    //Eager
-                    model.setModeler((Modeler) uDAO.findById(res.getInt("modeler")));
                     model.setName(res.getString("name"));
+                    model.setPrice(res.getDouble("price"));
+                    model.setModeler((Modeler) uDAO.findById(res.getInt("id_modeler")));
+                    model.setModeler((Modeler) uDAO.findUserByUser(res.getString("user_modeler")));
                     result = model;
                 }
             }
@@ -117,9 +112,11 @@ public class ModelDAO implements DAO <Model, Integer>{
                 while(res.next()){
                     Model model = new Model();
                     model.setId(res.getInt("id"));
-                    //Eager
-                    model.setModeler((Modeler) uDAO.findById(res.getInt("modeler")));
                     model.setName(res.getString("name"));
+                    model.setPrice(res.getDouble("price"));
+                    //Eager
+                    model.setModeler((Modeler) uDAO.findById(res.getInt("id_modeler")));
+                    model.setModeler((Modeler) uDAO.findUserByUser(res.getString("user_modeler")));
                     result.add(model);
                 }
             }

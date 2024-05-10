@@ -1,4 +1,4 @@
-package org.example.test;
+package org.example.test.User;
 
 
 import org.example.model.dao.UserDAO;

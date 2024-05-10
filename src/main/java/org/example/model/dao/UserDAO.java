@@ -61,16 +61,19 @@ public class UserDAO<T extends User> implements DAO<User, Integer> {
             String updateQuery = UPDATE.replace("TABLE", getTableName());
             try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(updateQuery)) {
                 pst.setString(1, entity.getUser());
+
                 if (entity.getPassword() != null) {
                     pst.setString(2, entity.getPassword());
                 } else {
                     pst.setNull(2, Types.INTEGER);
                 }
+
                 if (entity.getBornDate() != null) {
                     pst.setDate(3, Date.valueOf(entity.getBornDate()));
                 } else {
                     pst.setNull(3, Types.DATE);
                 }
+
                 pst.setString(4, entity.getImage());
                 pst.setInt(5, entity.getId());
                 pst.executeUpdate();
@@ -129,6 +132,7 @@ public class UserDAO<T extends User> implements DAO<User, Integer> {
                     result = new Modeler();
                     result.setId(res.getInt("Id"));
                     result.setUser(res.getString("User"));
+
                     Date bornDate = res.getDate("bornDate");
                     if (bornDate != null) {
                         result.setBornDate(bornDate.toLocalDate());
@@ -146,6 +150,7 @@ public class UserDAO<T extends User> implements DAO<User, Integer> {
                     result = new Client();
                     result.setId(res.getInt("Id"));
                     result.setUser(res.getString("User"));
+
                     Date bornDate = res.getDate("bornDate");
                     if (bornDate != null) {
                         result.setBornDate(bornDate.toLocalDate());

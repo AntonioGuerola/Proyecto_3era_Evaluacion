@@ -1,0 +1,62 @@
+
+g	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8å¹â½õ1
+g	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8å¹â½õ1
+d
+java:S1192&"GDefine a constant instead of duplicating this literal "TABLE" 10 times.(ß®Íï8è¹â½õ1
+i
+java:S1192)"GDefine a constant instead of duplicating this literal "Client" 5 times.(¬‚Àëûÿÿÿÿ8è¹â½õ1
+e
+java:S1192&"HDefine a constant instead of duplicating this literal "Modeler" 5 times.(ß®Íï8é¹â½õ1
+k	java:S116"PRename this field "_type" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(è²×+8¢ºâ½õ1
+s
+java:S3008"QRename this field "INSERT" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(à¿Ğôøÿÿÿÿ8£ºâ½õ1
+s
+java:S3008"QRename this field "UPDATE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(üÁÌùÿÿÿÿ8£ºâ½õ1
+{
+java:S3008"YRename this field "FINDUSERBYUSER" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(©Á ûşÿÿÿÿ8£ºâ½õ1
+x
+java:S3008"VRename this field "FINDALLUSER" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Û˜œ™úÿÿÿÿ8£ºâ½õ1
+s
+java:S3008"QRename this field "DELETE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(…ÇÒõşÿÿÿÿ8£ºâ½õ1
+¤
+java:S1186¬"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(æÔ«÷şÿÿÿÿ8¥ºâ½õ1
+a
+java:S2147"DCombine this catch with the one at line 24, which has the same body.(Å¡ß8«ºâ½õ1
+U
+java:S1874"3Remove this use of "newInstance"; it is deprecated.(œÓÒ³ûÿÿÿÿ8­ºâ½õ1
+S
+java:S2696&"6Make the enclosing method "static" or remove this set.(ß®Íï8±ºâ½õ1
+e
+java:S5361&"HReplace this call to "replaceAll()" by a call to the "replace()" method.(ß®Íï8²ºâ½õ1
+X
+java:S2696'"6Make the enclosing method "static" or remove this set.(–‡õŸùÿÿÿÿ8²ºâ½õ1
+j
+java:S5361'"HReplace this call to "replaceAll()" by a call to the "replace()" method.(–‡õŸùÿÿÿÿ8³ºâ½õ1
+X
+java:S2696)"6Make the enclosing method "static" or remove this set.(¬‚Àëûÿÿÿÿ8³ºâ½õ1
+j
+java:S5361)"HReplace this call to "replaceAll()" by a call to the "replace()" method.(¬‚Àëûÿÿÿÿ8³ºâ½õ1
+X
+java:S2696*"6Make the enclosing method "static" or remove this set.( ‹˜šûÿÿÿÿ8´ºâ½õ1
+j
+java:S5361*"HReplace this call to "replaceAll()" by a call to the "replace()" method.( ‹˜šûÿÿÿÿ8´ºâ½õ1
+X
+java:S2696W"6Make the enclosing method "static" or remove this set.(¦…Š«üÿÿÿÿ8ººâ½õ1
+j
+java:S5361W"HReplace this call to "replaceAll()" by a call to the "replace()" method.(¦…Š«üÿÿÿÿ8ººâ½õ1
+R
+java:S2696Y"6Make the enclosing method "static" or remove this set.(Ø¿ãM8ººâ½õ1
+d
+java:S5361Y"HReplace this call to "replaceAll()" by a call to the "replace()" method.(Ø¿ãM8»ºâ½õ1
+X
+java:S2696n"6Make the enclosing method "static" or remove this set.(ÔôÔìùÿÿÿÿ8¾ºâ½õ1
+j
+java:S5361n"HReplace this call to "replaceAll()" by a call to the "replace()" method.(ÔôÔìùÿÿÿÿ8¾ºâ½õ1
+S
+java:S2696p"6Make the enclosing method "static" or remove this set.(«¦˜Å8¾ºâ½õ1
+e
+java:S5361p"HReplace this call to "replaceAll()" by a call to the "replace()" method.(«¦˜Å8¿ºâ½õ1
+Y
+java:S2696Œ"6Make the enclosing method "static" or remove this set.(Ğ‹Úâûÿÿÿÿ8Âºâ½õ1
+Y
+java:S2696™"6Make the enclosing method "static" or remove this set.(İ£±üÿÿÿÿ8Äºâ½õ1

@@ -1,0 +1,12 @@
+
+•
+java:S3008
+"TRename this field "_instance" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Õ ÅùÿÿÿÿJ$983efc3f-b8c3-441f-bb98-2634b71c6a25
+†
+java:S1124	"EReorder the modifiers to comply with the Java Language Specification.(¬»˜ùÿÿÿÿJ$f7852c79-3ae4-4165-8529-01c8f5467185
+b
+java:S3010"!Remove this assignment of "conn".(æ‰¢ÙüÿÿÿÿJ$3ff60683-2ecf-4341-af7c-60f2ff91ba45
+b
+java:S3010"!Remove this assignment of "conn".(€×³›ÿÿÿÿÿJ$a15de972-a8c4-46ea-8bc5-7cf461cdabba
+x
+java:S1905"7Remove this unnecessary cast to "ConnectionProperties".(ä¼úşÿÿÿÿJ$2576f61c-61d8-4340-ad99-1eefe143ed6a

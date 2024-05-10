@@ -1,0 +1,8 @@
+
+–	java:S116"VRename this field "final_price" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(–ÜªßÿÿÿÿÿJ$10c33de5-2c72-4294-97f8-96867f965413
+g
+java:S1068"&Remove this unused "id" private field.(ôç¼ÓþÿÿÿÿJ$0bef4014-b842-4c87-b8d3-c6057d83beac
+p
+java:S1068"/Remove this unused "final_price" private field.(–ÜªßÿÿÿÿÿJ$b264d649-4196-4869-9529-2694e9a11505
+j
+java:S1068")Remove this unused "model" private field.(Œ½Ø•üÿÿÿÿJ$ba5a4ad6-3ed9-408f-886d-c3a639f21da2
