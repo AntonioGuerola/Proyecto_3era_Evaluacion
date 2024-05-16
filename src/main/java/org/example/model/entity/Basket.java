@@ -9,17 +9,22 @@ public class Basket {
     private int id;
     private double finalPrice;
     private HashMap<Integer,Model> models;
+    private Client client;
+    private BasketState basketState;
 
-    public Basket(int id, double finalPrice, HashMap<Integer,Model> models) {
+    public Basket(int id, double finalPrice, HashMap<Integer, Model> models, Client client, BasketState basketState) {
         this.id = id;
         this.finalPrice = finalPrice;
         this.models = models;
+        this.client = client;
+        this.basketState = basketState;
     }
 
     public Basket(){
         id=-1;
         finalPrice=0;
         this.models=new HashMap<>();
+        this.basketState = BasketState.INPROCESS;
     }
 
     public int getId() {
@@ -44,6 +49,22 @@ public class Basket {
 
     public void setModels(HashMap<Integer,Model> models) {
         this.models = models;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public BasketState getBasketState() {
+        return basketState;
+    }
+
+    public void setBasketState(BasketState basketState) {
+        this.basketState = basketState;
     }
 
     public boolean addModel(Model model) {
@@ -77,12 +98,12 @@ public class Basket {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
         Basket basket = (Basket) object;
-        return id == basket.id;
+        return id == basket.id && basketState == basket.basketState;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id, basketState);
     }
 
     @Override
@@ -90,7 +111,9 @@ public class Basket {
         return "Basket{" +
                 "id=" + id +
                 ", finalPrice=" + finalPrice +
-                ", model=" + models +
+                ", models=" + models +
+                ", client=" + client +
+                ", basketState=" + basketState +
                 '}';
     }
 }

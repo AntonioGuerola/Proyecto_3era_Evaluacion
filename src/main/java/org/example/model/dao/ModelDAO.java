@@ -17,6 +17,7 @@ public class ModelDAO implements DAO <Model, Integer>{
     private static final String FINDALL ="SELECT mo.id, mo.name, mo.price, mo.id_modeler, mo.user_modeler FROM Model AS mo";
     private static final String FINDBYID ="SELECT mo.id, mo.name, mo.price, mo.id_modeler, mo.user_modeler FROM Model AS mo WHERE mo.id=?";
     private static final String FINDBYMODELER ="SELECT mo.id, mo.name, mo.price, mo.id_modeler, mo.user_modeler FROM Model AS mo WHERE mo.id_modeler = ?";
+    private static final String FINDBYNAME ="SELECT mo.id, mo.name, mo.price, mo.id_modeler, mo.user_modeler FROM Model AS mo WHERE mo.name LIKE ?";
     private static final String DELETE ="DELETE FROM Model WHERE id = ?";
 
     private Connection conn;
@@ -129,6 +130,7 @@ public class ModelDAO implements DAO <Model, Integer>{
     }
 
     public List<Model> findByModeler(User user) {
+        UserDAO<Modeler> uDAO = new UserDAO<>(Modeler.class);
         ArrayList<Model> result = new ArrayList<>();
         if(user ==null || user.getId()==null) return result;
         try(PreparedStatement pst = conn.prepareStatement(FINDBYMODELER)){
@@ -137,19 +139,41 @@ public class ModelDAO implements DAO <Model, Integer>{
                 while(res.next()){
                     Model model = new Model();
                     model.setId(res.getInt("id"));
-                    model.setModeler((Modeler) user);
                     model.setName(res.getString("name"));
                     model.setPrice(res.getDouble("price"));
+                    model.setModeler((Modeler) uDAO.findById(res.getInt("id_modeler")));
+                    model.setModeler((Modeler) uDAO.findUserByUser(res.getString("user_modeler")));
                     result.add(model);
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
         return result;
     }
+
+    public List<Model> findByName(String key) {
+        UserDAO<Modeler> uDAO = new UserDAO<>(Modeler.class);
+        ArrayList<Model> result = new ArrayList<>();
+        try (PreparedStatement pst = conn.prepareStatement(FINDBYNAME)) {
+            pst.setString(1, "%" + key + "%"); // Agregamos '%' para buscar nombres que contengan la palabra clave
+            try (ResultSet res = pst.executeQuery()) {
+                while (res.next()) {
+                    Model model = new Model();
+                    model.setId(res.getInt("id"));
+                    model.setName(res.getString("name"));
+                    model.setPrice(res.getDouble("price"));
+                    model.setModeler((Modeler) uDAO.findById(res.getInt("id_modeler")));
+                    model.setModeler((Modeler) uDAO.findUserByUser(res.getString("user_modeler")));
+                    result.add(model);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
 
     @Override
     public void close() throws IOException {

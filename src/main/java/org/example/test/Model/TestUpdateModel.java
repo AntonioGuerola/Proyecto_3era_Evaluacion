@@ -11,7 +11,7 @@ public class TestUpdateModel {
     public static void main(String[] args) {
         ModelDAO modelDAO = new ModelDAO();
 
-        Model model = modelDAO.findById(3);
+        Model model = modelDAO.findById(2);
 
         model.setName("Articulated Tester Cat");
         model.setPrice(1.5);

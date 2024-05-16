@@ -13,6 +13,7 @@ public class TestUpdateUser {
 
         mo.setUser("dragonLegacy48");
         mo.setPassword("ñokis");
+        mo.setEmail("dragon_xenoverse@gmail.com");
         mo.setImage("AAAAAAAAAAAAA");
         System.out.println(moDAO.save(mo));
 
@@ -21,6 +22,7 @@ public class TestUpdateUser {
 
         cli.setUser("antonio0rtega02");
         cli.setPassword("joseEnrique");
+        cli.setEmail("litovaina445@gmail.com");
         cli.setImage("VCVCVCVCVCVC");
         System.out.println(cliDAO.save(cli));
     }

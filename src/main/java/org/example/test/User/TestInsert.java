@@ -23,9 +23,9 @@ public class TestInsert {
         System.out.println(moDAO.save(mo5));
 
         UserDAO<Client> cliDAO = new UserDAO<>(Client.class);
-        Client cli1 = new Client("antonio02", "joseEnrique", "jose", "garcía", "litovaina@gmail.com", LocalDate.now(), "erererer", null);
-        Client cli2 = new Client("pikagame", "brush789", "ivan", "antunez", "nobitanobi@gmail.com", LocalDate.now(), "vinobuwnagwgw8", null);
-        Client cli3 = new Client("super_homer", "t00th", "pepe", "santo", "giganteelmejor@gmail.com", LocalDate.now(), "4v64e84aww", null);
+        Client cli1 = new Client("antonio02", "joseEnrique", "jose", "garcía", "litovaina@gmail.com", LocalDate.now(), "erererer");
+        Client cli2 = new Client("pikagame", "brush789", "ivan", "antunez", "nobitanobi@gmail.com", LocalDate.now(), "vinobuwnagwgw8");
+        Client cli3 = new Client("super_homer", "t00th", "pepe", "santo", "giganteelmejor@gmail.com", LocalDate.now(), "4v64e84aww");
         System.out.println(cliDAO.save(cli1));
         System.out.println(cliDAO.save(cli2));
         System.out.println(cliDAO.save(cli3));

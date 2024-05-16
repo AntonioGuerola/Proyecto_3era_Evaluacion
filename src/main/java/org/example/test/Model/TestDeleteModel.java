@@ -15,6 +15,10 @@ public class TestDeleteModel {
 
         Modeler modeler = (Modeler) moDAO.findById(1);
         ArrayList<Model> models = (ArrayList<Model>) modelDAO.findByModeler(modeler);
+        Model modelToDelete = modelDAO.findById(3);
+
+        System.out.println(modelDAO.delete(modelToDelete));
+
         for(Model model : models) {
             System.out.println((modelDAO.delete(model)));
         }

@@ -1,6 +1,7 @@
 package org.example.model.dao;
 
 import org.example.model.connection.ConnectionMariaDB;
+import org.example.model.entity.Basket;
 import org.example.model.entity.Client;
 import org.example.model.entity.Modeler;
 import org.example.model.entity.User;
@@ -53,9 +54,11 @@ public class UserDAO<T extends User> implements DAO<User, Integer> {
                     entity.setId(resultSet.getInt(1));
                 }
 
+
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+
         } else {
             //UPDATE
             String updateQuery = UPDATE.replace("TABLE", getTableName());
@@ -67,6 +70,8 @@ public class UserDAO<T extends User> implements DAO<User, Integer> {
                 } else {
                     pst.setNull(2, Types.INTEGER);
                 }
+
+                pst.setString(3, entity.getEmail());
 
                 if (entity.getBornDate() != null) {
                     pst.setDate(3, Date.valueOf(entity.getBornDate()));
@@ -82,6 +87,7 @@ public class UserDAO<T extends User> implements DAO<User, Integer> {
                 e.printStackTrace();
             }
         }
+
         INSERT = INSERT.replaceAll("Modeler", "TABLE");
         UPDATE = UPDATE.replaceAll("Modeler", "TABLE");
         INSERT = INSERT.replaceAll("Client", "TABLE");
@@ -132,7 +138,6 @@ public class UserDAO<T extends User> implements DAO<User, Integer> {
                     result = new Modeler();
                     result.setId(res.getInt("Id"));
                     result.setUser(res.getString("User"));
-
                     Date bornDate = res.getDate("bornDate");
                     if (bornDate != null) {
                         result.setBornDate(bornDate.toLocalDate());
@@ -150,7 +155,6 @@ public class UserDAO<T extends User> implements DAO<User, Integer> {
                     result = new Client();
                     result.setId(res.getInt("Id"));
                     result.setUser(res.getString("User"));
-
                     Date bornDate = res.getDate("bornDate");
                     if (bornDate != null) {
                         result.setBornDate(bornDate.toLocalDate());
@@ -241,7 +245,6 @@ public class UserDAO<T extends User> implements DAO<User, Integer> {
     public void close() throws IOException {
 
     }
-
 
 }
 
