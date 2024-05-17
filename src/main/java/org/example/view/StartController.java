@@ -32,8 +32,13 @@ public class StartController extends Controller implements Initializable {
     }
 
     @FXML
-    private void toLogInLikeModeler() throws IOException {
-        App.currentController.changeScene(Scenes.SIGNIN,null);
+    private void toLogIn() throws IOException {
+        App.currentController.changeScene(Scenes.LOGIN,null);
+    }
+
+    @FXML
+    private void close() throws IOException {
+        System.exit(0);
     }
 
 }

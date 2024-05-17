@@ -16,7 +16,7 @@ public class UserDAO<T extends User> implements DAO<User, Integer> {
     private static String INSERT = "INSERT INTO TABLE (user, password, name, surname, email, bornDate, image) VALUES (?, ?, ?, ?, ?, ?, ?)";
     private static String UPDATE = "UPDATE TABLE SET user = ?, password = ?, bornDate = ?, image = ? WHERE id=? ";
     private static String FINDBYID = "SELECT x.id, x.user, x.bornDate FROM TABLE AS x WHERE x.id=?";
-    private static String FINDUSERBYUSER = "SELECT x.id, x.user FROM TABLE AS x WHERE x.user = ?";
+    private static String FINDUSERBYUSER = "SELECT x.id, x.user, x.password FROM TABLE AS x WHERE x.user = ?";
     private static String FINDUSERBYEMAIL = "SELECT x.id, x.user FROM TABLE AS x WHERE x.email = ?";
     private static String FINDALLUSER = "SELECT x.id, x.user FROM TABLE AS x";
     private static String DELETE = "DELETE FROM TABLE WHERE id = ?";
@@ -218,6 +218,7 @@ public class UserDAO<T extends User> implements DAO<User, Integer> {
                     result = new Modeler();
                     result.setId(res.getInt("id"));
                     result.setUser(res.getString("user"));
+                    result.setPassword(res.getString("password"));
                 }
             } catch (SQLException e) {
                 e.printStackTrace();

@@ -64,7 +64,7 @@ public class SignInController extends Controller implements Initializable {
     @FXML
     public void saveUser() throws IOException, NoSuchAlgorithmException {
         if (choiceBox.getValue().equals("Modeler")) {
-            if (passwordText.getText().length() > 16){
+            if (passwordText.getText().length() < 16){
                 if (passwordText.getText().equals(confirmPasswordText.getText())) {
                     Modeler modelerToSignIn = new Modeler(userText.getText(), JavaFXUtils.hashPassword(passwordText.getText()), nameText.getText(), surnamesText.getText(), emailText.getText(), bornDatePicker.getValue(), "images/user.jpg");
                     if (UserDAO.buildModeler().findUserByUser(modelerToSignIn.getUser()) == null) {
@@ -89,7 +89,7 @@ public class SignInController extends Controller implements Initializable {
                 JavaFXUtils.showErrorAlert("ERROR CREATING MODELER", "Password is longer than 16 characters");
             }
         } else if (choiceBox.getValue().equals("Client")) {
-            if (passwordText.getText().length() > 16){
+            if (passwordText.getText().length() < 16){
                 if (passwordText.getText().equals(confirmPasswordText.getText())) {
                     Client clientToSignIn = new Client(userText.getText(), JavaFXUtils.hashPassword(passwordText.getText()), nameText.getText(), surnamesText.getText(), emailText.getText(), bornDatePicker.getValue(), "images/user.jpg");
                     if (UserDAO.buildClient().findUserByUser(clientToSignIn.getUser()) == null) {
