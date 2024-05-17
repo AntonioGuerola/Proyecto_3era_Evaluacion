@@ -1,4 +1,5 @@
-package org.example;
+package org.example.view;
 
 public class LogInController {
+
 }

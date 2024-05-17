@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
@@ -12,25 +13,18 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.ModelModalController">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.view.ModelSettingsController">
    <children>
-      <GridPane layoutX="494.0" layoutY="69.0" prefHeight="283.0" prefWidth="360.0">
+      <GridPane layoutX="494.0" layoutY="69.0" prefHeight="129.0" prefWidth="360.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label text="Name" GridPane.halignment="CENTER">
-               <GridPane.margin>
-                  <Insets bottom="75.0" />
-               </GridPane.margin>
-            </Label>
-            <Label text="Rating" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets bottom="75.0" />
                </GridPane.margin>
@@ -40,30 +34,19 @@
                   <Insets bottom="75.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Category" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-               <GridPane.margin>
-                  <Insets bottom="75.0" />
-               </GridPane.margin>
-            </Label>
             <TextField GridPane.halignment="CENTER" />
-            <TextField GridPane.halignment="CENTER" GridPane.rowIndex="1" />
             <TextField GridPane.columnIndex="1" GridPane.halignment="CENTER" />
-            <Label text="Modeler" GridPane.halignment="CENTER" GridPane.rowIndex="2">
-               <GridPane.margin>
-                  <Insets bottom="75.0" />
-               </GridPane.margin>
-            </Label>
-            <TextField GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-            <TextField GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
          </children>
       </GridPane>
       <ImageView fitHeight="402.0" fitWidth="402.0" layoutX="30.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../java/org/example/img/user.jpg" />
+            <Image url="@../images/user.jpg" />
          </image>
       </ImageView>
-      <Button layoutX="431.0" layoutY="516.0" mnemonicParsing="false" text="Add" />
+      <Button layoutX="423.0" layoutY="515.0" mnemonicParsing="false" text="Save" />
       <Label layoutX="651.0" layoutY="343.0" text="Description" />
       <TextArea layoutX="497.0" layoutY="374.0" prefHeight="98.0" prefWidth="360.0" />
+      <Label layoutX="650.0" layoutY="219.0" text="Category" />
+      <ChoiceBox layoutX="599.0" layoutY="252.0" prefWidth="150.0" />
    </children>
 </AnchorPane>

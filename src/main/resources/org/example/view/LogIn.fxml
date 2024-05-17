@@ -11,8 +11,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
-<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.LogInController ">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.view.LogInController ">
    <children>
       <GridPane layoutX="150.0" layoutY="100.0" prefHeight="400.0" prefWidth="600.0">
         <columnConstraints>
@@ -29,7 +28,7 @@
          <children>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
                <image>
-                  <Image url="@../../../java/org/example/img/LogoG3DMedio.png" />
+                  <Image url="@../images/LogoG3DMedio.png" />
                </image>
                <GridPane.margin>
                   <Insets bottom="75.0" />

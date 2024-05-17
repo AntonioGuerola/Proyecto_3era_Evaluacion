@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.shape.Circle?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.UserSettingsController">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.view.UserSettingsController">
    <children>
       <GridPane layoutX="83.0" layoutY="130.0" prefHeight="335.0" prefWidth="435.0">
         <columnConstraints>
@@ -53,7 +53,7 @@
       </GridPane>
       <ImageView fitHeight="369.0" fitWidth="281.0" layoutX="584.0" layoutY="157.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../java/org/example/img/user.jpg" />
+            <Image url="@../images/user.jpg" />
          </image>
       </ImageView>
       <Circle fill="DODGERBLUE" layoutX="725.0" layoutY="297.0" opacity="0.29" radius="100.0" stroke="BLACK" strokeType="INSIDE" />

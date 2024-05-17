@@ -8,4 +8,6 @@ module org.example {
     opens org.example.model.connection to java.xml.bind;
 
     exports org.example;
+    exports org.example.view;
+    opens org.example.view to javafx.fxml;
 }

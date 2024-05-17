@@ -1,10 +1,7 @@
 package org.example.model.dao;
 
 import org.example.model.connection.ConnectionMariaDB;
-import org.example.model.entity.Basket;
-import org.example.model.entity.BasketState;
-import org.example.model.entity.Client;
-import org.example.model.entity.Model;
+import org.example.model.entity.*;
 
 import java.io.IOException;
 import java.sql.*;
@@ -22,8 +19,7 @@ public class BasketDAO implements DAO<Basket, Integer> {
     private static final String DELETE = "DELETE FROM basket WHERE id = ?";
     private static final String DELETEMODELFROMBASKET = "DELETE FROM modelBasketRelation WHERE id_basket = ? AND id_model = ?";
     private static final String FINDBYID = "SELECT id, finalPrice, id_client, basketState FROM basket WHERE id = ?";
-    //private static final String FINDALL = "SELECT id, finalPrice, model FROM basket";
-    //private static final String FINDBYNAME = "SELECT id, finalPrice, model FROM basket WHERE name LIKE ?";
+    private static final String FINDALL = "SELECT id, finalPrice, id_client, basketState FROM basket";
     private static final String FINDBYCLIENT = "SELECT id, finalPrice, basketState FROM basket WHERE id_client = ?";
     private static final String FINDMODELSBYBASKET = "SELECT m.id, m.name, m.price FROM model m, modelBasketRelation mb WHERE m.id = mb.id_model AND mb.id_basket = ?";
 
@@ -198,65 +194,28 @@ public class BasketDAO implements DAO<Basket, Integer> {
         return result;
     }
 
-    public Basket findByName(String key) {
-        /*Basket result = null;
-        try (PreparedStatement pst = conn.prepareStatement(FINDBYNAME)) {
-            pst.setString(1, key);
-            ResultSet resultSet = pst.executeQuery();
-            if (resultSet.next()) {
-                result = new Basket();
-                result.setId(resultSet.getInt("id"));
-                result.setFinalPrice(resultSet.getDouble("finalPrice"));
-                ArrayList<Model> includedModels = new ArrayList<>();
-                try (PreparedStatement pstInclude = conn.prepareStatement(INSERTMODELINBASKET)) {
-                    pstInclude.setInt(1, result.getId());
-                    ResultSet resultSetInclude = pstInclude.executeQuery();
-                    while (resultSetInclude.next()) {
-                        Model model = new Model();
-                        model.setId(resultSetInclude.getInt("id"));
-                        model.setName(resultSetInclude.getString("name"));
-                        model.setPrice(resultSetInclude.getDouble("price"));
-                        // Otras propiedades del modelo
-
-                        includedModels.add(model);
-                    }
-                }
-                result.setModels(includedModels);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }*/
-        return null; //result;
-    }
-
     @Override
     public List<Basket> findAll() {
-        /*List<Basket> baskets = new ArrayList<>();
-        try (PreparedStatement pst = conn.prepareStatement(FINDALL)) {
-            ResultSet resultSet = pst.executeQuery();
-            while (resultSet.next()) {
-                Basket basket = new Basket();
-                basket.setId(resultSet.getInt("id"));
-                basket.setFinalPrice(resultSet.getDouble("finalPrice"));
+        UserDAO<Client> cliDAO = new UserDAO<>(Client.class);
+        BasketState basketState = null;
+        List<Basket> result = new ArrayList<>();
 
-                HashMap<Model,Integer> includedModels = new HashMap<>();
-                try (PreparedStatement pstInclude = conn.prepareStatement(INSERTMODELINBASKET)) {
-                    pstInclude.setInt(1, basket.getId());
-                    ResultSet resultSetInclude = pstInclude.executeQuery();
-                    while (resultSetInclude.next()) {
-                        Model model = new Model();
-                        model.setId(resultSetInclude.getInt("id"));
-                        model.setName(resultSetInclude.getString("name"));
-                        model.setPrice(resultSetInclude.getDouble("price"));
-                        includedModels.addmodel(model);
-                    }
-                }
-                basket.setModels(includedModels);
+        try(PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(FINDALL)) {
+
+            ResultSet res = pst.executeQuery();
+            while(res.next()){
+                Basket basket = new Basket();
+                basket.setId(res.getInt("id"));
+                basket.setFinalPrice(res.getDouble("finalPrice"));
+                basket.setClient((Client) cliDAO.findById(res.getInt("id_client")));
+                basket.setBasketState(BasketState.valueOf(res.getString("basketState")));
+                result.add(basket);
             }
+            res.close();
         } catch (SQLException e) {
             e.printStackTrace();
-        }*/
-        return null; //baskets;
+        }
+        return result;
     }
 
     @Override

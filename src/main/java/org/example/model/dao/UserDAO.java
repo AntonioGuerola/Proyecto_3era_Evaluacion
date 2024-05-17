@@ -17,6 +17,7 @@ public class UserDAO<T extends User> implements DAO<User, Integer> {
     private static String UPDATE = "UPDATE TABLE SET user = ?, password = ?, bornDate = ?, image = ? WHERE id=? ";
     private static String FINDBYID = "SELECT x.id, x.user, x.bornDate FROM TABLE AS x WHERE x.id=?";
     private static String FINDUSERBYUSER = "SELECT x.id, x.user FROM TABLE AS x WHERE x.user = ?";
+    private static String FINDUSERBYEMAIL = "SELECT x.id, x.user FROM TABLE AS x WHERE x.email = ?";
     private static String FINDALLUSER = "SELECT x.id, x.user FROM TABLE AS x";
     private static String DELETE = "DELETE FROM TABLE WHERE id = ?";
 
@@ -241,11 +242,53 @@ public class UserDAO<T extends User> implements DAO<User, Integer> {
         return result;
     }
 
+    public User findUserByEmail(String key) {
+        User result = null;
+        if (_type instanceof Modeler) {
+            try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(FINDUSERBYEMAIL.replace("TABLE", "Modeler"))) {
+                pst.setString(1, key);
+                ResultSet res = pst.executeQuery();
+                if (res.next()) {
+                    result = new Modeler();
+                    result.setId(res.getInt("id"));
+                    result.setEmail(res.getString("email"));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } else {
+            try (PreparedStatement pst = ConnectionMariaDB.getConnection().prepareStatement(FINDUSERBYEMAIL.replace("TABLE", "Client"))) {
+                pst.setString(1, key);
+                ResultSet res = pst.executeQuery();
+                if (res.next()) {
+                    result = new Client();
+                    result.setId(res.getInt("id"));
+                    result.setEmail(res.getString("email"));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        FINDUSERBYEMAIL = FINDUSERBYEMAIL.replaceAll("Modeler", "TABLE");
+        FINDUSERBYEMAIL = FINDUSERBYEMAIL.replaceAll("Client", "TABLE");
+
+        return result;
+    }
+
     @Override
     public void close() throws IOException {
 
     }
 
+
+    public static UserDAO<Modeler> buildModeler(){
+        return new UserDAO<Modeler>(Modeler.class);
+    }
+
+    public static UserDAO<Client> buildClient(){
+        return new UserDAO<Client>(Client.class);
+    }
 }
 
 
