@@ -1,0 +1,58 @@
+CREATE DATABASE G3D;
+USE G3D;
+CREATE TABLE modeler(
+id INT (4) ZEROFILL AUTO_INCREMENT, 
+user VARCHAR (20) NOT NULL UNIQUE,
+password VARCHAR (64) NOT NULL,
+name VARCHAR (20) NOT NULL,
+surname VARCHAR (30) NOT NULL,
+email VARCHAR (50) NOT NULL UNIQUE,
+bornDate DATE,
+image LONGBLOB,
+PRIMARY KEY (id)
+);
+
+CREATE TABLE client(
+id INT (4) ZEROFILL AUTO_INCREMENT,
+user VARCHAR (20) NOT NULL UNIQUE,
+password VARCHAR (64) NOT NULL,
+name VARCHAR (20) NOT NULL,
+surname VARCHAR (30) NOT NULL,
+email VARCHAR (50) NOT NULL UNIQUE,
+bornDate DATE,
+image LONGBLOB,
+PRIMARY KEY (id)
+);
+
+CREATE TABLE basket(
+id INT (4) ZEROFILL AUTO_INCREMENT,
+finalPrice DECIMAL(6,2) ZEROFILL NOT NULL DEFAULT (0.00),
+id_client INT (4) ZEROFILL,
+FOREIGN KEY (id_client) REFERENCES client (id),
+basketState VARCHAR (20),
+PRIMARY KEY (id)
+);
+
+CREATE TABLE model(
+id INT (4) ZEROFILL AUTO_INCREMENT,
+name VARCHAR (30) NOT NULL,
+price DECIMAL (6,2) ZEROFILL NOT NULL DEFAULT (0.00),
+description VARCHAR (400),
+rating DECIMAL (2,1),
+image LONGBLOB,
+model VARCHAR (100),
+category VARCHAR (20),
+id_modeler INT (4) ZEROFILL, 
+FOREIGN KEY (id_modeler) REFERENCES modeler (id),
+user_modeler VARCHAR (20), 
+FOREIGN KEY (user_modeler) REFERENCES modeler (user),
+PRIMARY KEY (id)
+);
+
+CREATE TABLE modelBasketRelation(
+id_basket INT (4) ZEROFILL,
+FOREIGN KEY (id_basket) REFERENCES basket (id),
+id_model INT (4) ZEROFILL,
+FOREIGN KEY (id_model) REFERENCES model (id),
+PRIMARY KEY (id_basket, id_model)
+);
