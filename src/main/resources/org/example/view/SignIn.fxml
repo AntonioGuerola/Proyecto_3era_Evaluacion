@@ -12,7 +12,6 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.shape.Circle?>
 
 <AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.view.SignInController">
    <children>
@@ -78,12 +77,13 @@
             <ChoiceBox fx:id="choiceBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
          </children>
       </GridPane>
-      <ImageView fitHeight="369.0" fitWidth="281.0" layoutX="589.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imageView" fitHeight="369.0" fitWidth="281.0" layoutX="589.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/user.jpg" />
          </image>
       </ImageView>
-      <Circle fill="DODGERBLUE" layoutX="730.0" layoutY="198.0" opacity="0.29" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
-      <Button layoutX="710.0" layoutY="479.0" mnemonicParsing="false" onAction="#saveUser" text="Save" />
+      <Button layoutX="709.0" layoutY="460.0" mnemonicParsing="false" onAction="#saveUser" text="Save" />
+      <Button layoutX="690.0" layoutY="374.0" mnemonicParsing="false" onAction="#loadImage" text="Load Image" />
+      <Button layoutX="699.0" layoutY="498.0" mnemonicParsing="false" onAction="#goBack" text="Go Back" />
    </children>
 </AnchorPane>

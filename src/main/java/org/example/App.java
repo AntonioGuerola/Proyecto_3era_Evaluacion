@@ -22,7 +22,7 @@ public class App extends Application {
     public static Stage stage;
     public static AppController currentController;
 
-    //este el es primer método que se ejecuta al abrir la primera ventana
+    //este es el primer método que se ejecuta al abrir la primera ventana
     @Override
     public void start(Stage stage) throws IOException {
         //view/layout.fxml
@@ -33,6 +33,10 @@ public class App extends Application {
         stage.setTitle("G3D");
         stage.getIcons().add(new Image(Objects.requireNonNull(App.class.getResourceAsStream("images/LogoG3DMedio.png"))));
         stage.setScene(scene);
+        stage.setMinHeight(600);
+        stage.setMinWidth(900);
+        stage.setMaxHeight(600);
+        stage.setMaxWidth(900);
         stage.show();
     }
 

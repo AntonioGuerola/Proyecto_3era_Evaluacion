@@ -9,12 +9,12 @@ public class Model {
     private double price;
     private String description;
     private double rating;
-    private String image;
+    private byte[] image;
     private String model;
     private ModelCategory category;
     private Modeler modeler;
 
-    public Model(String name, double price, String description, double rating, String image, String model, ModelCategory category, Modeler modeler) {
+    public Model(String name, double price, String description, double rating, byte[] image, String model, ModelCategory category, Modeler modeler) {
         this.name = name;
         this.price = price;
         this.description = description;
@@ -69,11 +69,11 @@ public class Model {
         this.rating = rating;
     }
 
-    public String getImage() {
+    public byte[] getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(byte[] image) {
         this.image = image;
     }
 

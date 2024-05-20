@@ -14,10 +14,10 @@ import java.util.List;
 public class ModelDAO implements DAO <Model, Integer>{
     private static final String INSERT ="INSERT INTO Model (name, price, description, rating, image, model, category, id_modeler, user_modeler) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String UPDATE ="UPDATE Model SET name = ?, price = ?, description = ?, image = ? WHERE id = ?";
-    private static final String FINDALL ="SELECT mo.id, mo.name, mo.price, mo.id_modeler, mo.user_modeler FROM Model AS mo";
+    private static final String FINDALL ="SELECT mo.id, mo.name, mo.price, mo.rating, mo.id_modeler, mo.user_modeler, mo.image FROM Model AS mo";
     private static final String FINDBYID ="SELECT mo.id, mo.name, mo.price, mo.id_modeler, mo.user_modeler FROM Model AS mo WHERE mo.id=?";
-    private static final String FINDBYMODELER ="SELECT mo.id, mo.name, mo.price, mo.id_modeler, mo.user_modeler FROM Model AS mo WHERE mo.id_modeler = ?";
-    private static final String FINDBYNAME ="SELECT mo.id, mo.name, mo.price, mo.id_modeler, mo.user_modeler FROM Model AS mo WHERE mo.name LIKE ?";
+    private static final String FINDBYMODELER ="SELECT mo.id, mo.name, mo.price, mo.rating, mo.id_modeler, mo.user_modeler, mo.image FROM Model AS mo WHERE mo.id_modeler = ?";
+    private static final String FINDBYNAME ="SELECT mo.id, mo.name, mo.price, mo.rating, mo.id_modeler, mo.user_modeler, mo.image FROM Model AS mo WHERE mo.name LIKE ?";
     private static final String DELETE ="DELETE FROM Model WHERE id = ?";
 
     private Connection conn;
@@ -40,7 +40,7 @@ public class ModelDAO implements DAO <Model, Integer>{
                         pst.setDouble(2,model.getPrice());
                         pst.setString(3,model.getDescription());
                         pst.setDouble(4,model.getRating());
-                        pst.setString(5,model.getImage());
+                        pst.setBytes(5,model.getImage());
                         pst.setString(6,model.getModel());
                         pst.setString(7,model.getCategory().name());
                         pst.setInt(8,model.getModeler().getId());
@@ -55,7 +55,7 @@ public class ModelDAO implements DAO <Model, Integer>{
                         pst.setString(1,model.getName());
                         pst.setDouble(2,model.getPrice());
                         pst.setString(3,model.getDescription());
-                        pst.setString(4,model.getImage());
+                        pst.setBytes(4,model.getImage());
                         pst.setInt(5, model.getId());
                         pst.executeUpdate();
                     }catch (SQLException e){
@@ -115,9 +115,11 @@ public class ModelDAO implements DAO <Model, Integer>{
                     model.setId(res.getInt("id"));
                     model.setName(res.getString("name"));
                     model.setPrice(res.getDouble("price"));
+                    model.setRating(res.getDouble("rating"));
                     //Eager
                     model.setModeler((Modeler) uDAO.findById(res.getInt("id_modeler")));
                     model.setModeler((Modeler) uDAO.findUserByUser(res.getString("user_modeler")));
+                    model.setImage(res.getBytes("image"));
                     result.add(model);
                 }
             }
@@ -141,8 +143,11 @@ public class ModelDAO implements DAO <Model, Integer>{
                     model.setId(res.getInt("id"));
                     model.setName(res.getString("name"));
                     model.setPrice(res.getDouble("price"));
+                    model.setRating(res.getDouble("rating"));
+                    //Eager
                     model.setModeler((Modeler) uDAO.findById(res.getInt("id_modeler")));
                     model.setModeler((Modeler) uDAO.findUserByUser(res.getString("user_modeler")));
+                    model.setImage(res.getBytes("image"));
                     result.add(model);
                 }
             }
@@ -163,8 +168,11 @@ public class ModelDAO implements DAO <Model, Integer>{
                     model.setId(res.getInt("id"));
                     model.setName(res.getString("name"));
                     model.setPrice(res.getDouble("price"));
+                    model.setRating(res.getDouble("rating"));
+                    //Eager
                     model.setModeler((Modeler) uDAO.findById(res.getInt("id_modeler")));
                     model.setModeler((Modeler) uDAO.findUserByUser(res.getString("user_modeler")));
+                    model.setImage(res.getBytes("image"));
                     result.add(model);
                 }
             }

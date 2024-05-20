@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.view.InsertModelController">
+   <children>
+      <GridPane layoutX="494.0" layoutY="69.0" prefHeight="114.0" prefWidth="360.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="Name" GridPane.halignment="CENTER">
+               <GridPane.margin>
+                  <Insets bottom="75.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Price (With .)" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+               <GridPane.margin>
+                  <Insets bottom="75.0" />
+               </GridPane.margin>
+            </Label>
+            <TextField fx:id="modelNameText" GridPane.halignment="CENTER" />
+            <TextField fx:id="modelPriceValue" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+         </children>
+      </GridPane>
+      <ImageView fx:id="imageView" fitHeight="402.0" fitWidth="402.0" layoutX="30.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true" />
+      <Button layoutX="189.0" layoutY="493.0" mnemonicParsing="false" onAction="#loadImage" text="Insert Image Model" />
+      <Label layoutX="644.0" layoutY="282.0" text="Description" />
+      <TextArea fx:id="modelDescriptionText" layoutX="494.0" layoutY="314.0" prefHeight="98.0" prefWidth="360.0" />
+      <Button layoutX="431.0" layoutY="493.0" mnemonicParsing="false" onAction="#saveModel" text="Add" />
+      <Label layoutX="650.0" layoutY="183.0" text="Category" />
+      <ChoiceBox fx:id="choiceBox" layoutX="599.0" layoutY="214.0" prefWidth="150.0" />
+      <Button layoutX="420.0" layoutY="531.0" mnemonicParsing="false" onAction="#goBack" text="Go Back" />
+   </children>
+</AnchorPane>

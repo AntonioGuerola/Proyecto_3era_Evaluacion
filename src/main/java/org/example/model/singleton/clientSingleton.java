@@ -1,7 +1,6 @@
 package org.example.model.singleton;
 
 import org.example.model.entity.Client;
-import org.example.model.entity.Modeler;
 
 public class clientSingleton {
     private static clientSingleton _instance;
@@ -25,7 +24,7 @@ public class clientSingleton {
         _instance=null;
     }
 
-    public Client getCurrentMclient() {
+    public Client getCurrentClient() {
         return currentClient;
     }
 }

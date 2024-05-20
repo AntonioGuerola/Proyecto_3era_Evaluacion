@@ -2,17 +2,17 @@ package org.example.view;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.example.App;
 import org.example.model.dao.ModelDAO;
+import org.example.model.dao.UserDAO;
 import org.example.model.entity.Model;
 import org.example.model.entity.ModelCategory;
+import org.example.model.entity.Modeler;
 import org.example.model.singleton.modelSingleton;
 import org.example.model.singleton.modelerSingleton;
 import org.example.model.utils.JavaFXUtils;
@@ -20,8 +20,10 @@ import org.example.model.utils.JavaFXUtils;
 import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.UnaryOperator;
+import java.util.regex.Pattern;
 
-public class ModelSettingsController extends Controller implements Initializable {
+public class InsertModelController extends Controller implements Initializable {
 
     @FXML
     private TextField modelNameText;
@@ -55,18 +57,10 @@ public class ModelSettingsController extends Controller implements Initializable
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Model selectedModel = modelSingleton.getInstance().getCurrentModel();
-        if (selectedModel != null) {
-            byte[] imageData = selectedModel.getImage();
-            if (imageData != null) {
-                ByteArrayInputStream bis = new ByteArrayInputStream(imageData);
-                Image image = new Image(bis);
-                imageView.setImage(image);
-            }
-        }
+
     }
 
-    public void updateModel() throws IOException {
+    public void saveModel() throws IOException {
         double priceValue;
         try {
             priceValue = Double.parseDouble(modelPriceValue.getText());
@@ -125,6 +119,6 @@ public class ModelSettingsController extends Controller implements Initializable
     }
 
     public void goBack() throws IOException {
-        App.currentController.changeScene(Scenes.MYMODELS, null);
+        App.currentController.changeScene(Scenes.MODELERHOME, null);
     }
 }

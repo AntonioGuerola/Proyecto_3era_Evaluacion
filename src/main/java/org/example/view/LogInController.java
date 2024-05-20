@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import org.example.App;
 import org.example.model.dao.UserDAO;
 import org.example.model.entity.Client;
 import org.example.model.entity.Modeler;
@@ -47,7 +48,7 @@ public class LogInController extends Controller implements Initializable {
     @FXML
     public boolean logIn() throws IOException, NoSuchAlgorithmException {
         boolean result = false;
-        User userToLogin = new User(userText.getText(), JavaFXUtils.hashPassword(passwordText.getText()), "", "", "", null, "");
+        User userToLogin = new User(userText.getText(), JavaFXUtils.hashPassword(passwordText.getText()), "", "", "", null, null);
         if (choiceBox.getValue().equals("Modeler")) {
             Modeler modelerFromDataBase = (Modeler) UserDAO.buildModeler().findUserByUser(userToLogin.getUser());
             if (modelerFromDataBase != null) {
@@ -82,8 +83,15 @@ public class LogInController extends Controller implements Initializable {
 
     public void onActionLogIn() throws IOException, NoSuchAlgorithmException {
         if (logIn()) {
-            //App.currentController.changeScene(Scenes.TEACHERFIRST,null);
-            System.out.println("Se ha conseguido loguear jajajajja");
+            if (choiceBox.getValue().equals("Modeler")) {
+                App.currentController.changeScene(Scenes.MODELERHOME, null);
+            } else if (choiceBox.getValue().equals("Client")) {
+                App.currentController.changeScene(Scenes.CLIENTHOME, null);
+            }
         }
+    }
+
+    public void goBack() throws IOException {
+        App.currentController.changeScene(Scenes.START, null);
     }
 }

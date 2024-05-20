@@ -21,8 +21,7 @@ public class BasketDAO implements DAO<Basket, Integer> {
     private static final String FINDBYID = "SELECT id, finalPrice, id_client, basketState FROM basket WHERE id = ?";
     private static final String FINDALL = "SELECT id, finalPrice, id_client, basketState FROM basket";
     private static final String FINDBYCLIENT = "SELECT id, finalPrice, basketState FROM basket WHERE id_client = ?";
-    private static final String FINDMODELSBYBASKET = "SELECT m.id, m.name, m.price FROM model m, modelBasketRelation mb WHERE m.id = mb.id_model AND mb.id_basket = ?";
-
+    private static final String FINDMODELSBYBASKET = "SELECT m.id, m.name, m.price, m.description, m.rating, m.image, m.user_modeler FROM model m, modelBasketRelation mb WHERE m.id = mb.id_model AND mb.id_basket = ?";
 
     private Connection conn;
 
@@ -235,6 +234,7 @@ public class BasketDAO implements DAO<Basket, Integer> {
 
     public Basket findBasketByClient(Client client) {
         Basket basket = null;
+        UserDAO<Modeler> uDAO = new UserDAO<>(Modeler.class);
         try (PreparedStatement pst = conn.prepareStatement(FINDBYCLIENT)) {
             pst.setInt(1, client.getId());
             ResultSet resultSet = pst.executeQuery();
@@ -253,6 +253,11 @@ public class BasketDAO implements DAO<Basket, Integer> {
                         model.setId(resultSetInclude.getInt("id"));
                         model.setName(resultSetInclude.getString("name"));
                         model.setPrice(resultSetInclude.getDouble("price"));
+                        model.setDescription(resultSetInclude.getString("description"));
+                        model.setRating(resultSetInclude.getDouble("rating"));
+                        model.setImage(resultSetInclude.getBytes("image"));
+                        model.setModeler((Modeler) uDAO.findUserByUser(resultSetInclude.getString("user_modeler")));
+
                         includedModels.put(model.getId(), model);
                     }
                 }
@@ -263,7 +268,6 @@ public class BasketDAO implements DAO<Basket, Integer> {
         }
         return basket;
     }
-
 }
 
 

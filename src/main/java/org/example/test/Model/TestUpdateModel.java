@@ -16,7 +16,7 @@ public class TestUpdateModel {
         model.setName("Articulated Tester Cat");
         model.setPrice(1.5);
         model.setDescription("A spectacular articulated cat from de head until the tail to tester any printer.");
-        model.setImage("AAAAAAAAAAAAA");
+        model.setImage(null);
 
         System.out.println(modelDAO.save(model));
 

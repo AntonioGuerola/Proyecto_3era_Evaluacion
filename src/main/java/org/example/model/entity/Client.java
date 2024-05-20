@@ -6,7 +6,7 @@ import java.util.Objects;
 
 public class Client extends User{
 
-    public Client(String user, String password, String name, String surname, String email, LocalDate bornDate, String image) {
+    public Client(String user, String password, String name, String surname, String email, LocalDate bornDate, byte[] image) {
         super(user,password,name,surname,email,bornDate,image);
     }
 

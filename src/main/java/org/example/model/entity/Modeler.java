@@ -6,7 +6,7 @@ import java.time.LocalDate;
 public class Modeler extends User{
 
 
-    public Modeler(String user, String password, String name, String surname, String email, LocalDate bornDate, String image) {
+    public Modeler(String user, String password, String name, String surname, String email, LocalDate bornDate, byte[] image) {
         super(user,password,name,surname,email,bornDate,image);
     }
     public Modeler(){

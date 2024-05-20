@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.view.BasketController">
+   <children>
+      <TableView fx:id="TableView" layoutX="279.0" layoutY="50.0" prefHeight="500.0" prefWidth="450.0">
+         <columns>
+            <TableColumn fx:id="modelId" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" sortable="false" text="Id" />
+            <TableColumn fx:id="modelName" editable="false" maxWidth="250.0" minWidth="250.0" prefWidth="250.0" text="Name" />
+            <TableColumn fx:id="modelPrice" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Price" />
+            <TableColumn fx:id="modelRating" maxWidth="0.0" minWidth="0.0" prefWidth="0.0" text="Column X" visible="false" />
+            <TableColumn fx:id="modelModeler" maxWidth="0.0" minWidth="0.0" prefWidth="0.0" text="Column X" visible="false" />
+            <TableColumn fx:id="modelImage" maxWidth="0.0" minWidth="0.0" prefWidth="0.0" text="Column X" visible="false" />
+         </columns>
+      </TableView>
+      <Button layoutX="94.0" layoutY="471.0" mnemonicParsing="false" onAction="#toUserSettings" text="User Settings" />
+      <Button layoutX="107.0" layoutY="510.0" mnemonicParsing="false" onAction="#toGoBack" text="Go Back" />
+      <TextField fx:id="searchText" layoutX="63.0" layoutY="73.0" prefHeight="26.0" prefWidth="150.0" />
+      <Button layoutX="112.0" layoutY="112.0" mnemonicParsing="false" onAction="#searchModel" text="Search" />
+      <TextField fx:id="basketFinalPrice" layoutX="89.0" layoutY="208.0" prefHeight="26.0" prefWidth="98.0" />
+      <Label layoutX="112.0" layoutY="182.0" text="Final Price" />
+   </children>
+</AnchorPane>

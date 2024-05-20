@@ -11,9 +11,9 @@ public class User{
     private String surname;
     private String email;
     private LocalDate bornDate;
-    private String image;
+    private byte[] image;
 
-    public User(String user, String password, String name, String surname, String email, LocalDate bornDate, String image) {
+    public User(String user, String password, String name, String surname, String email, LocalDate bornDate, byte[] image) {
         this.user = user;
         this.password = password;
         this.name = name;
@@ -82,11 +82,11 @@ public class User{
         this.bornDate = bornDate;
     }
 
-    public String getImage() {
+    public byte[] getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(byte[] image) {
         this.image = image;
     }
 
