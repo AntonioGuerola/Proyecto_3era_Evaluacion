@@ -5,20 +5,27 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.view.MyModelsController">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.example.view.MyModelsController">
     <children>
         <TableView fx:id="TableView" layoutX="127.0" layoutY="50.0" prefHeight="500.0" prefWidth="750.0">
             <columns>
-                <TableColumn fx:id="modelId" editable="false" maxWidth="75.0" minWidth="75.0" prefWidth="75.0" resizable="false" sortable="false" text="Id" />
-                <TableColumn fx:id="modelName" editable="false" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" text="Name" />
-                <TableColumn fx:id="modelPrice" editable="false" maxWidth="75.0" minWidth="75.0" prefWidth="75.0" text="Price" />
-                <TableColumn fx:id="modelRating" editable="false" maxWidth="75.0" minWidth="75.0" prefWidth="75.0" text="Rating" />
-                <TableColumn fx:id="modelModeler" editable="false" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" text="Modeler" />
-                <TableColumn fx:id="modelImage" editable="false" maxWidth="175.0" minWidth="175.0" prefWidth="175.0" text="Image" />
+                <TableColumn fx:id="modelId" editable="false" maxWidth="75.0" minWidth="75.0" prefWidth="75.0"
+                             resizable="false" sortable="false" text="Id"/>
+                <TableColumn fx:id="modelName" editable="false" maxWidth="200.0" minWidth="200.0" prefWidth="200.0"
+                             text="Name"/>
+                <TableColumn fx:id="modelPrice" editable="false" maxWidth="75.0" minWidth="75.0" prefWidth="75.0"
+                             text="Price"/>
+                <TableColumn fx:id="modelRating" editable="false" maxWidth="75.0" minWidth="75.0" prefWidth="75.0"
+                             text="Rating"/>
+                <TableColumn fx:id="modelModeler" editable="false" maxWidth="150.0" minWidth="150.0" prefWidth="150.0"
+                             text="Modeler"/>
+                <TableColumn fx:id="modelImage" editable="false" maxWidth="175.0" minWidth="175.0" prefWidth="175.0"
+                             text="Image"/>
             </columns>
         </TableView>
-        <Button layoutX="20.0" layoutY="445.0" mnemonicParsing="false" onAction="#toInsertModel" text="Insert Model" />
-        <Button layoutX="19.0" layoutY="485.0" mnemonicParsing="false" onAction="#toUserSettings" text="User Settings" />
-        <Button layoutX="32.0" layoutY="524.0" mnemonicParsing="false" onAction="#goBack" text="Go Back" />
+        <Button layoutX="20.0" layoutY="445.0" mnemonicParsing="false" onAction="#toInsertModel" text="Insert Model"/>
+        <Button layoutX="19.0" layoutY="485.0" mnemonicParsing="false" onAction="#toUserSettings" text="User Settings"/>
+        <Button layoutX="32.0" layoutY="524.0" mnemonicParsing="false" onAction="#goBack" text="Go Back"/>
     </children>
 </AnchorPane>

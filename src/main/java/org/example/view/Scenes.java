@@ -1,5 +1,8 @@
 package org.example.view;
 
+/**
+ * Enumeration representing the scenes (views) in the application.
+ */
 public enum Scenes {
     ROOT("view/layout.fxml"),
     START("view/start.fxml"),
@@ -19,11 +22,20 @@ public enum Scenes {
     BASKET("view/Basket.fxml");;
 
     private String url;
-    Scenes(String url){
-        this.url=url;
-    }
-    public String getURL(){
-        return url;
+
+    /**
+     * Constructor for Scenes enumeration.
+     * @param url The URL of the corresponding FXML file.
+     */
+    Scenes(String url) {
+        this.url = url;
     }
 
+    /**
+     * Gets the URL of the scene.
+     * @return The URL of the FXML file representing the scene.
+     */
+    public String getURL() {
+        return url;
+    }
 }

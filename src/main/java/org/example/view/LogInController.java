@@ -18,8 +18,10 @@ import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.util.ResourceBundle;
 
+/**
+ * Controller class for handling user login functionality.
+ */
 public class LogInController extends Controller implements Initializable {
-
     @FXML
     public ChoiceBox<String> choiceBox = new ChoiceBox<>();
 
@@ -29,22 +31,38 @@ public class LogInController extends Controller implements Initializable {
     @FXML
     public TextField passwordText;
 
+    /**
+     * Initializer for some aspects.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
 
+    /**
+     * Change the scene to START when the controller is opened.
+     */
     @Override
     public void onOpen(Object input) throws IOException {
         choiceBox.getItems().add("Modeler");
         choiceBox.getItems().add("Client");
     }
 
+    /**
+     * Do something when the controller is going to close.
+     */
     @Override
     public void onClose(Object output) {
 
     }
 
+    /**
+     * Attempts to log in the user based on the provided credentials and user type.
+     *
+     * @return True if the login was successful, false otherwise.
+     * @throws IOException              If an error occurs during view change.
+     * @throws NoSuchAlgorithmException If the hashing algorithm is not available.
+     */
     @FXML
     public boolean logIn() throws IOException, NoSuchAlgorithmException {
         boolean result = false;
@@ -81,6 +99,12 @@ public class LogInController extends Controller implements Initializable {
         return result;
     }
 
+    /**
+     * Handles the login action triggered by the user.
+     *
+     * @throws IOException              If an error occurs during view change.
+     * @throws NoSuchAlgorithmException If the hashing algorithm is not available.
+     */
     public void onActionLogIn() throws IOException, NoSuchAlgorithmException {
         if (logIn()) {
             if (choiceBox.getValue().equals("Modeler")) {
@@ -91,6 +115,11 @@ public class LogInController extends Controller implements Initializable {
         }
     }
 
+    /**
+     * Navigates back to the start screen.
+     *
+     * @throws IOException If an error occurs during view change.
+     */
     public void goBack() throws IOException {
         App.currentController.changeScene(Scenes.START, null);
     }

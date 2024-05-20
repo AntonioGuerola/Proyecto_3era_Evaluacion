@@ -10,13 +10,10 @@ import static org.example.model.entity.ModelCategory.MOBILE_HOLDER;
 public class TestModelInsert {
     public static void main(String[] args) {
         UserDAO<Modeler> moDAO = new UserDAO<>(Modeler.class);
-
         User u1 = moDAO.findUserByUser("juanvi");
         User u2 = moDAO.findUserByUser("onix55");
-
         Modeler m1 = (Modeler) u1;
         Modeler m2 = (Modeler) u2;
-
         Model model1 = new Model("Articulated Cat", 3.5, "A spectacular articulated cat from de head until the tail.",
                 4.5, null, "ooooooppppppooooo", HOUSE, m1);
         Model model2 = new Model("Benchy", 0, "The allknown boat for tester any printer",
@@ -27,7 +24,6 @@ public class TestModelInsert {
 
         Model model4 = new Model("Hunger Games Logo", 1.6, "The Hunger Games logo for decorate the wall",
                 3, null, "cS4V4", HOUSE, m2);
-
         ModelDAO modelDAO = new ModelDAO();
         System.out.println(modelDAO.save(model1));
         System.out.println(modelDAO.save(model2));

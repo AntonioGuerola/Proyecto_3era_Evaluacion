@@ -8,24 +8,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
-
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-
-
 import org.example.App;
 import org.example.model.dao.ModelDAO;
 import org.example.model.entity.Model;
-import org.example.model.entity.Modeler;
 import org.example.model.singleton.modelSingleton;
-import org.example.model.singleton.modelerSingleton;
-
-import javax.swing.text.Element;
-
 import javafx.scene.image.ImageView;
 import org.example.model.singleton.searchSingleton;
 
@@ -35,6 +26,9 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * Controller class for the modeler's home view.
+ */
 public class ModelerHomeController extends Controller implements Initializable {
     @FXML
     private TextField searchText;
@@ -62,6 +56,9 @@ public class ModelerHomeController extends Controller implements Initializable {
 
     private ObservableList<Model> observableList;
 
+    /**
+     * Initializer for some aspects.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         if (TableView.getItems().isEmpty()) {
@@ -78,18 +75,15 @@ public class ModelerHomeController extends Controller implements Initializable {
                 if (imageData != null) {
                     ByteArrayInputStream bis = new ByteArrayInputStream(imageData);
                     Image image = new Image(bis);
-
                     ImageView imageView = new ImageView(image);
                     imageView.setFitWidth(150);
                     imageView.setPreserveRatio(true);
-
                     return new SimpleObjectProperty<>(imageView);
                 } else {
                     System.out.println("visualData es null");
                     return null;
                 }
             });
-
             TableView.setRowFactory(tv -> {
                 TableRow<Model> row = new TableRow<>();
                 row.setOnMouseClicked(event -> {
@@ -108,33 +102,64 @@ public class ModelerHomeController extends Controller implements Initializable {
         }
     }
 
+    /**
+     * Change the scene to START when the controller is opened.
+     */
     @Override
     public void onOpen(Object input) throws IOException {
 
     }
 
+    /**
+     * Do something when the controller is going to close.
+     */
     @Override
     public void onClose(Object output) {
 
     }
 
+    /**
+     * Navigates to the user settings view.
+     *
+     * @throws IOException If an error occurs during view change.
+     */
     public void toUserSettings() throws IOException {
         App.currentController.changeScene(Scenes.USERSETTINGS, null);
     }
 
+    /**
+     * Navigates to the insert model view.
+     *
+     * @throws IOException If an error occurs during view change.
+     */
     public void toInsertModel() throws IOException {
         App.currentController.changeScene(Scenes.INSERTMODEL, null);
     }
 
+    /**
+     * Navigates to the my models view.
+     *
+     * @throws IOException If an error occurs during view change.
+     */
     public void toMyModels() throws IOException {
         App.currentController.changeScene(Scenes.MYMODELS, null);
     }
 
+    /**
+     * Closes the application.
+     *
+     * @throws IOException If an error occurs during application closure.
+     */
     @FXML
     private void close() throws IOException {
         System.exit(0);
     }
 
+    /**
+     * Searches for models based on the provided text.
+     *
+     * @throws IOException If an error occurs during view change.
+     */
     @FXML
     private void searchModel() throws IOException {
         searchSingleton.getInstance(searchText.getText());

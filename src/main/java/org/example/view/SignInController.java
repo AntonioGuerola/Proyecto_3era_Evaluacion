@@ -22,8 +22,10 @@ import org.example.model.singleton.clientSingleton;
 import org.example.model.singleton.modelerSingleton;
 import org.example.model.utils.JavaFXUtils;
 
+/**
+ * Controller class for the view responsible for signing up new users.
+ */
 public class SignInController extends Controller implements Initializable {
-
     @FXML
     private TextField nameText;
 
@@ -53,22 +55,37 @@ public class SignInController extends Controller implements Initializable {
 
     private File imageFile;
 
+    /**
+     * Initializer for some aspects.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
 
+    /**
+     * Change the scene to START when the controller is opened.
+     */
     @Override
     public void onOpen(Object input) throws IOException {
         choiceBox.getItems().add("Modeler");
         choiceBox.getItems().add("Client");
     }
 
+    /**
+     * Do something when the controller is going to close.
+     */
     @Override
     public void onClose(Object output) {
 
     }
 
+
+    /**
+     * Saves the user data and signs up a new user.
+     * @throws IOException If an I/O error occurs.
+     * @throws NoSuchAlgorithmException If the requested cryptographic algorithm is not available in the environment.
+     */
     @FXML
     public void saveUser() throws IOException, NoSuchAlgorithmException {
         if (choiceBox.getValue().equals("Modeler")) {
@@ -79,7 +96,6 @@ public class SignInController extends Controller implements Initializable {
                         FileInputStream fis = new FileInputStream(imageFile);
                         fis.read(imageData);
                         fis.close();
-
                         Modeler modelerToSignIn = new Modeler(userText.getText(), JavaFXUtils.hashPassword(passwordText.getText()), nameText.getText(), surnamesText.getText(), emailText.getText(), bornDatePicker.getValue(), imageData);
                         if (UserDAO.buildModeler().findUserByUser(modelerToSignIn.getUser()) == null) {
                             if (JavaFXUtils.validateEmail(emailText.getText())) {
@@ -113,7 +129,6 @@ public class SignInController extends Controller implements Initializable {
                         FileInputStream fis = new FileInputStream(imageFile);
                         fis.read(imageData);
                         fis.close();
-
                         Client clientToSignIn = new Client(userText.getText(), JavaFXUtils.hashPassword(passwordText.getText()), nameText.getText(), surnamesText.getText(), emailText.getText(), bornDatePicker.getValue(), imageData);
                         if (UserDAO.buildClient().findUserByUser(clientToSignIn.getUser()) == null) {
                             if (JavaFXUtils.validateEmail(emailText.getText())) {
@@ -142,6 +157,9 @@ public class SignInController extends Controller implements Initializable {
         }
     }
 
+    /**
+     * Loads an image when selected by the user.
+     */
     @FXML
     private void loadImage() {
         FileChooser fileChooser = new FileChooser();
@@ -162,6 +180,10 @@ public class SignInController extends Controller implements Initializable {
         }
     }
 
+    /**
+     * Navigates back to the start scene.
+     * @throws IOException If an I/O error occurs.
+     */
     public void goBack() throws IOException {
         App.currentController.changeScene(Scenes.START, null);
     }

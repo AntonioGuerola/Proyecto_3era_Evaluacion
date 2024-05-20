@@ -9,10 +9,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.example.App;
 import org.example.model.dao.ModelDAO;
-import org.example.model.dao.UserDAO;
 import org.example.model.entity.Model;
 import org.example.model.entity.ModelCategory;
-import org.example.model.entity.Modeler;
 import org.example.model.singleton.modelSingleton;
 import org.example.model.singleton.modelerSingleton;
 import org.example.model.utils.JavaFXUtils;
@@ -20,11 +18,11 @@ import org.example.model.utils.JavaFXUtils;
 import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.function.UnaryOperator;
-import java.util.regex.Pattern;
 
+/**
+ * Controller class for inserting a new model.
+ */
 public class InsertModelController extends Controller implements Initializable {
-
     @FXML
     private TextField modelNameText;
 
@@ -39,10 +37,12 @@ public class InsertModelController extends Controller implements Initializable {
 
     private File imageFile;
 
-
     @FXML
     private TextArea modelDescriptionText;
 
+    /**
+     * Change the scene to START when the controller is opened.
+     */
     @Override
     public void onOpen(Object input) throws IOException {
         choiceBox.getItems().add("House");
@@ -50,16 +50,27 @@ public class InsertModelController extends Controller implements Initializable {
         choiceBox.getItems().add("Mobile holder");
     }
 
+    /**
+     * Do something when the controller is going to close.
+     */
     @Override
     public void onClose(Object output) {
 
     }
 
+    /**
+     * Initializer for some aspects.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
 
+    /**
+     * Saves the model information to the database.
+     *
+     * @throws IOException If an error occurs during database access.
+     */
     public void saveModel() throws IOException {
         double priceValue;
         try {
@@ -68,7 +79,6 @@ public class InsertModelController extends Controller implements Initializable {
             JavaFXUtils.showErrorAlert("ERROR", "The price has to be a valid number");
             return;
         }
-
         ModelCategory selectedCategory;
         switch (choiceBox.getValue()) {
             case "House":
@@ -84,13 +94,11 @@ public class InsertModelController extends Controller implements Initializable {
                 JavaFXUtils.showErrorAlert("ERROR", "Invalid category");
                 return;
         }
-
         if (imageFile != null) {
             byte[] imageData = new byte[(int) imageFile.length()];
             FileInputStream fis = new FileInputStream(imageFile);
             fis.read(imageData);
             fis.close();
-
             Model modelToAdd = new Model(modelNameText.getText(), priceValue, modelDescriptionText.getText(), 0, imageData, "", selectedCategory, modelerSingleton.getInstance().getCurrentModeler());
             ModelDAO.build().save(modelToAdd);
             modelSingleton.getInstance(modelToAdd);
@@ -98,6 +106,9 @@ public class InsertModelController extends Controller implements Initializable {
         }
     }
 
+    /**
+     * Loads an image file.
+     */
     @FXML
     private void loadImage() {
         FileChooser fileChooser = new FileChooser();
@@ -118,6 +129,11 @@ public class InsertModelController extends Controller implements Initializable {
         }
     }
 
+    /**
+     * Returns to the modeler's home screen.
+     *
+     * @throws IOException If an error occurs during view change.
+     */
     public void goBack() throws IOException {
         App.currentController.changeScene(Scenes.MODELERHOME, null);
     }

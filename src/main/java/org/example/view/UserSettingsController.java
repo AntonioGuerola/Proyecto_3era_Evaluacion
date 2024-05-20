@@ -1,15 +1,11 @@
 package org.example.view;
 
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.example.App;
@@ -25,8 +21,10 @@ import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.util.ResourceBundle;
 
+/**
+ * Controller class for managing the users settings view.
+ */
 public class UserSettingsController extends Controller implements Initializable {
-
     @FXML
     private TextField userText;
 
@@ -44,6 +42,9 @@ public class UserSettingsController extends Controller implements Initializable 
 
     private File imageFile;
 
+    /**
+     * Initializer for some aspects.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         if (modelerSingleton.getInstance() != null) {
@@ -55,6 +56,12 @@ public class UserSettingsController extends Controller implements Initializable 
         }
     }
 
+    /**
+     * Loads the image view with the provided image data.
+     * If the image data is null, logs a message indicating so.
+     *
+     * @param imageData The byte array representing the image data.
+     */
     private void loadImageView(byte[] imageData) {
         if (imageData != null) {
             ByteArrayInputStream bis = new ByteArrayInputStream(imageData);
@@ -65,16 +72,28 @@ public class UserSettingsController extends Controller implements Initializable 
         }
     }
 
+    /**
+     * Change the scene to START when the controller is opened.
+     */
     @Override
     public void onOpen(Object input) throws IOException {
 
     }
 
+    /**
+     * Do something when the controller is going to close.
+     */
     @Override
     public void onClose(Object output) {
 
     }
 
+    /**
+     * Updates the user information.
+     *
+     * @throws NoSuchAlgorithmException If an algorithm used by the encryption is not available.
+     * @throws IOException              If an I/O error occurs.
+     */
     public void updateUser() throws NoSuchAlgorithmException, IOException {
         if (modelerSingleton.getInstance() != null) {
             Modeler modelerToUpdate = modelerSingleton.getInstance().getCurrentModeler();
@@ -87,7 +106,6 @@ public class UserSettingsController extends Controller implements Initializable 
                             modelerToUpdate.setPassword(JavaFXUtils.hashPassword(passwordText.getText()));
                             modelerToUpdate.setEmail(emailText.getText());
                             modelerToUpdate.setBornDate(bornDatePicker.getValue());
-
                             if (imageFile != null) {
                                 byte[] imageData = new byte[(int) imageFile.length()];
                                 try (FileInputStream fis = new FileInputStream(imageFile)) {
@@ -96,7 +114,6 @@ public class UserSettingsController extends Controller implements Initializable 
                                 }
                                 modelerToUpdate.setImage(imageData);
                             }
-
                             UserDAO.buildModeler().save(modelerToUpdate);
                             modelerSingleton.getInstance(modelerToUpdate);
                             App.currentController.changeScene(Scenes.MODELERHOME, null);
@@ -123,7 +140,6 @@ public class UserSettingsController extends Controller implements Initializable 
                             clientToUpdate.setPassword(JavaFXUtils.hashPassword(passwordText.getText()));
                             clientToUpdate.setEmail(emailText.getText());
                             clientToUpdate.setBornDate(bornDatePicker.getValue());
-
                             if (imageFile != null) {
                                 byte[] imageData = new byte[(int) imageFile.length()];
                                 try (FileInputStream fis = new FileInputStream(imageFile)) {
@@ -132,7 +148,6 @@ public class UserSettingsController extends Controller implements Initializable 
                                 }
                                 clientToUpdate.setImage(imageData);
                             }
-
                             UserDAO.buildClient().save(clientToUpdate);
                             clientSingleton.getInstance(clientToUpdate);
                             App.currentController.changeScene(Scenes.CLIENTHOME, null);
@@ -151,6 +166,11 @@ public class UserSettingsController extends Controller implements Initializable 
         }
     }
 
+    /**
+     * Navigates back to the appropriate scene based on the user type.
+     *
+     * @throws IOException If an I/O error occurs.
+     */
     public void goBack() throws IOException {
         if (modelerSingleton.getInstance() != null) {
             App.currentController.changeScene(Scenes.MODELERHOME, null);
@@ -159,6 +179,10 @@ public class UserSettingsController extends Controller implements Initializable 
         }
     }
 
+
+    /**
+     * Loads an image when selected by the user.
+     */
     @FXML
     private void loadImage() {
         FileChooser fileChooser = new FileChooser();

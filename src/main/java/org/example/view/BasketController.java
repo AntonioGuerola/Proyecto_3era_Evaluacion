@@ -14,13 +14,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import org.example.App;
-import org.example.model.dao.BasketDAO;
-import org.example.model.dao.ModelDAO;
 import org.example.model.entity.Basket;
 import org.example.model.entity.Model;
-import org.example.model.entity.Modeler;
 import org.example.model.singleton.basketSingleton;
-import org.example.model.singleton.clientSingleton;
 import org.example.model.singleton.modelSingleton;
 import org.example.model.singleton.searchSingleton;
 
@@ -32,6 +28,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+/**
+ * Controller class for managing the basket view.
+ */
 public class BasketController extends Controller implements Initializable {
     @FXML
     private TextField basketFinalPrice;
@@ -62,6 +61,9 @@ public class BasketController extends Controller implements Initializable {
 
     private ObservableList<Model> observableList;
 
+    /**
+     * Initializer for some aspects.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Basket basketToUse = basketSingleton.getInstance().getCurrentBasket();
@@ -80,11 +82,9 @@ public class BasketController extends Controller implements Initializable {
                 if (imageData != null) {
                     ByteArrayInputStream bis = new ByteArrayInputStream(imageData);
                     Image image = new Image(bis);
-
                     ImageView imageView = new ImageView(image);
                     imageView.setFitWidth(150);
                     imageView.setPreserveRatio(true);
-
                     return new SimpleObjectProperty<>(imageView);
                 } else {
                     System.out.println("visualData es null");
@@ -107,31 +107,51 @@ public class BasketController extends Controller implements Initializable {
                 return row;
             });
         }
-
         if (basketToUse != null) {
             basketFinalPrice.setText(String.valueOf(basketToUse.getFinalPrice()));
         }
     }
 
+    /**
+     * Change the scene to START when the controller is opened.
+     */
     @Override
     public void onOpen(Object input) throws IOException {
 
     }
 
+    /**
+     * Do something when the controller is going to close.
+     */
     @Override
     public void onClose(Object output) {
 
     }
-    
+
+    /**
+     * Navigates to the user settings view.
+     *
+     * @throws IOException If an error occurs while loading the view.
+     */
     public void toUserSettings() throws IOException {
         App.currentController.changeScene(Scenes.USERSETTINGS, null);
     }
 
+    /**
+     * Navigates back to the client home view.
+     *
+     * @throws IOException If an error occurs while loading the view.
+     */
     @FXML
     private void toGoBack() throws IOException {
         App.currentController.changeScene(Scenes.CLIENTHOME, null);
     }
 
+    /**
+     * Searches for a model based on the text entered in the search field.
+     *
+     * @throws IOException If an error occurs while loading the search view.
+     */
     @FXML
     private void searchModel() throws IOException {
         searchSingleton.getInstance(searchText.getText());

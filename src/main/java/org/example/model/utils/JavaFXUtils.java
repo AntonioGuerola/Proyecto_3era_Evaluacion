@@ -11,11 +11,20 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+/**
+ * A utility class for JavaFX-related operations.
+ */
 public class JavaFXUtils {
-    public static void showErrorAlert(String title, String textAboutAlert){
+    /**
+     * Displays an error alert dialog.
+     *
+     * @param title           The title of the alert dialog.
+     * @param textAboutAlert  The content text of the alert dialog.
+     */
+    public static void showErrorAlert(String title, String textAboutAlert) {
         Alert errorAlert = new Alert(Alert.AlertType.ERROR);
         errorAlert.setTitle(title);
-        if (errorAlert.getDialogPane().getScene().getWindow()!=null) {
+        if (errorAlert.getDialogPane().getScene().getWindow() != null) {
             Stage alertStage = (Stage) errorAlert.getDialogPane().getScene().getWindow();
             alertStage.getIcons().add(new Image(Objects.requireNonNull(App.class.getResourceAsStream("images/LogoG3DMedio.png"))));
         }
@@ -25,9 +34,10 @@ public class JavaFXUtils {
     }
 
     /**
-     * Convierte un arreglo de bytes en una cadena hexadecimal.
-     * @param hash El arreglo de bytes que se convertirá.
-     * @return La cadena hexadecimal correspondiente al arreglo de bytes.
+     * Converts a byte array to a hexadecimal string.
+     *
+     * @param hash The byte array to convert.
+     * @return The hexadecimal string representing the byte array.
      */
     private static String bytesToHex(byte[] hash) {
         StringBuilder hexString = new StringBuilder(2 * hash.length);
@@ -40,11 +50,13 @@ public class JavaFXUtils {
         }
         return hexString.toString();
     }
+
     /**
-     * Calcula el hash SHA3-256 de una contraseña dada.
-     * @param password La contraseña que se desea hashear.
-     * @return El hash SHA3-256 de la contraseña.
-     * @throws NoSuchAlgorithmException Si el algoritmo de hash no está disponible.
+     * Calculates the SHA3-256 hash of a given password.
+     *
+     * @param password The password to hash.
+     * @return The SHA3-256 hash of the password.
+     * @throws NoSuchAlgorithmException If the hash algorithm is not available.
      */
     public static String hashPassword(String password) throws NoSuchAlgorithmException {
         final MessageDigest digest = MessageDigest.getInstance("SHA3-256");
@@ -54,7 +66,13 @@ public class JavaFXUtils {
         return sha3Hex;
     }
 
-    public static boolean validateEmail(String email){
+    /**
+     * Validates an email address using a regular expression pattern.
+     *
+     * @param email The email address to validate.
+     * @return True if the email is valid, otherwise false.
+     */
+    public static boolean validateEmail(String email) {
         Pattern pattern = Pattern.compile("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$");
         return pattern.matcher(email).matches();
     }

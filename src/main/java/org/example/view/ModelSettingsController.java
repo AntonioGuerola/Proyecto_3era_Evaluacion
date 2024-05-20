@@ -21,8 +21,10 @@ import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Controller class for the model settings view.
+ */
 public class ModelSettingsController extends Controller implements Initializable {
-
     @FXML
     private TextField modelNameText;
 
@@ -37,10 +39,12 @@ public class ModelSettingsController extends Controller implements Initializable
 
     private File imageFile;
 
-
     @FXML
     private TextArea modelDescriptionText;
 
+    /**
+     * Change the scene to START when the controller is opened.
+     */
     @Override
     public void onOpen(Object input) throws IOException {
         choiceBox.getItems().add("House");
@@ -48,11 +52,17 @@ public class ModelSettingsController extends Controller implements Initializable
         choiceBox.getItems().add("Mobile holder");
     }
 
+    /**
+     * Do something when the controller is going to close.
+     */
     @Override
     public void onClose(Object output) {
 
     }
 
+    /**
+     * Initializer for some aspects.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Model selectedModel = modelSingleton.getInstance().getCurrentModel();
@@ -66,6 +76,11 @@ public class ModelSettingsController extends Controller implements Initializable
         }
     }
 
+    /**
+     * Updates the model with the new information provided.
+     *
+     * @throws IOException If an error occurs during model update.
+     */
     public void updateModel() throws IOException {
         double priceValue;
         try {
@@ -74,7 +89,6 @@ public class ModelSettingsController extends Controller implements Initializable
             JavaFXUtils.showErrorAlert("ERROR", "The price has to be a valid number");
             return;
         }
-
         ModelCategory selectedCategory;
         switch (choiceBox.getValue()) {
             case "House":
@@ -90,13 +104,11 @@ public class ModelSettingsController extends Controller implements Initializable
                 JavaFXUtils.showErrorAlert("ERROR", "Invalid category");
                 return;
         }
-
         if (imageFile != null) {
             byte[] imageData = new byte[(int) imageFile.length()];
             FileInputStream fis = new FileInputStream(imageFile);
             fis.read(imageData);
             fis.close();
-
             Model modelToAdd = new Model(modelNameText.getText(), priceValue, modelDescriptionText.getText(), 0, imageData, "", selectedCategory, modelerSingleton.getInstance().getCurrentModeler());
             ModelDAO.build().save(modelToAdd);
             modelSingleton.getInstance(modelToAdd);
@@ -104,6 +116,9 @@ public class ModelSettingsController extends Controller implements Initializable
         }
     }
 
+    /**
+     * Loads an image to be associated with the model.
+     */
     @FXML
     private void loadImage() {
         FileChooser fileChooser = new FileChooser();
@@ -124,6 +139,11 @@ public class ModelSettingsController extends Controller implements Initializable
         }
     }
 
+    /**
+     * Navigates back to the "My Models" section.
+     *
+     * @throws IOException If an error occurs during navigation.
+     */
     public void goBack() throws IOException {
         App.currentController.changeScene(Scenes.MYMODELS, null);
     }

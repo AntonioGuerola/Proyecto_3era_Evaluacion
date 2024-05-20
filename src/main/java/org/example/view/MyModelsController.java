@@ -10,13 +10,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
-import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import org.example.App;
 import org.example.model.dao.ModelDAO;
 import org.example.model.entity.Model;
-import org.example.model.singleton.clientSingleton;
 import org.example.model.singleton.modelSingleton;
 import org.example.model.singleton.modelerSingleton;
 
@@ -26,6 +24,9 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * Controller class for the My Models view.
+ */
 public class MyModelsController extends Controller implements Initializable {
     @FXML
     private javafx.scene.control.TableView<Model> TableView;
@@ -50,6 +51,9 @@ public class MyModelsController extends Controller implements Initializable {
 
     private ObservableList<Model> observableList;
 
+    /**
+     * Initializer for some aspects.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         if (TableView.getItems().isEmpty()) {
@@ -66,18 +70,15 @@ public class MyModelsController extends Controller implements Initializable {
                 if (imageData != null) {
                     ByteArrayInputStream bis = new ByteArrayInputStream(imageData);
                     Image image = new Image(bis);
-
                     ImageView imageView = new ImageView(image);
                     imageView.setFitWidth(150);
                     imageView.setPreserveRatio(true);
-
                     return new SimpleObjectProperty<>(imageView);
                 } else {
                     System.out.println("visualData es null");
                     return null;
                 }
             });
-
             TableView.setRowFactory(tv -> {
                 TableRow<Model> row = new TableRow<>();
                 row.setOnMouseClicked(event -> {
@@ -96,24 +97,45 @@ public class MyModelsController extends Controller implements Initializable {
         }
     }
 
+    /**
+     * Change the scene to START when the controller is opened.
+     */
     @Override
     public void onOpen(Object input) throws IOException {
 
     }
 
+    /**
+     * Do something when the controller is going to close.
+     */
     @Override
     public void onClose(Object output) {
 
     }
 
+    /**
+     * Navigates to the user settings view.
+     *
+     * @throws IOException If an error occurs during navigation.
+     */
     public void toUserSettings() throws IOException {
         App.currentController.changeScene(Scenes.USERSETTINGS, null);
     }
 
+    /**
+     * Navigates to the insert model view.
+     *
+     * @throws IOException If an error occurs during navigation.
+     */
     public void toInsertModel() throws IOException {
         App.currentController.changeScene(Scenes.INSERTMODEL, null);
     }
 
+    /**
+     * Navigates back to the Modeler Home view.
+     *
+     * @throws IOException If an error occurs during navigation.
+     */
     public void goBack() throws IOException {
         if (modelerSingleton.getInstance() != null) {
             App.currentController.changeScene(Scenes.MODELERHOME, null);

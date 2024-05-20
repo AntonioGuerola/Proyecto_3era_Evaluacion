@@ -1,31 +1,30 @@
 package org.example;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.example.view.AppController;
 import org.example.view.Scenes;
-import org.example.view.Controller;
 import org.example.view.View;
 
 import java.io.IOException;
 import java.util.Objects;
+
 /**
- * JavaFX App
+ * The main class that launches the JavaFX application.
  */
 public class App extends Application {
-
     public static Scene scene;
-    public static Stage stage;
     public static AppController currentController;
 
-    //este es el primer método que se ejecuta al abrir la primera ventana
+    /**
+     * The entry point for the JavaFX application.
+     * @param stage The primary stage for the application.
+     * @throws IOException If an error occurs during loading of FXML files.
+     */
     @Override
     public void start(Stage stage) throws IOException {
-        //view/layout.fxml
         View view = AppController.loadFXML(Scenes.ROOT);
         scene = new Scene(view.scene, 900, 600);
         currentController = (AppController) view.controller;
@@ -40,13 +39,20 @@ public class App extends Application {
         stage.show();
     }
 
+    /**
+     * Static method to set the root scene.
+     * @param fxml The FXML file to load as the root scene.
+     * @throws IOException If an error occurs during loading of the FXML file.
+     */
     public static void setRoot(String fxml) throws IOException {
-        //  scene.setRoot(loadFXML(fxml));
+
     }
 
-
+    /**
+     * The main method to launch the application.
+     * @param args The command line arguments.
+     */
     public static void main(String[] args) {
         launch();
     }
-
 }

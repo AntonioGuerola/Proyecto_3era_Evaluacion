@@ -9,7 +9,6 @@ public class TestDeleteUSer {
         UserDAO<Modeler> moDAO = new UserDAO<>(Modeler.class);
         Modeler mo = (Modeler) moDAO.findUserByUser("aqua85nevada");
         System.out.println(moDAO.delete(mo));
-
         UserDAO<Client> cliDAO = new UserDAO<>(Client.class);
         Client cli = (Client) cliDAO.findUserByUser("super_homer");
         System.out.println(cliDAO.delete(cli));

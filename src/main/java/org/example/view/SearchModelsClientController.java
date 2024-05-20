@@ -25,6 +25,9 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * Controller class for the view responsible for searching models by clients.
+ */
 public class SearchModelsClientController extends Controller implements Initializable {
     @FXML
     private TextField searchText;
@@ -52,6 +55,9 @@ public class SearchModelsClientController extends Controller implements Initiali
 
     private ObservableList<Model> observableList;
 
+    /**
+     * Initializer for some aspects.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         if (TableView.getItems().isEmpty()) {
@@ -68,18 +74,15 @@ public class SearchModelsClientController extends Controller implements Initiali
                 if (imageData != null) {
                     ByteArrayInputStream bis = new ByteArrayInputStream(imageData);
                     Image image = new Image(bis);
-
                     ImageView imageView = new ImageView(image);
                     imageView.setFitWidth(150);
                     imageView.setPreserveRatio(true);
-
                     return new SimpleObjectProperty<>(imageView);
                 } else {
                     System.out.println("visualData es null");
                     return null;
                 }
             });
-
             TableView.setRowFactory(tv -> {
                 TableRow<Model> row = new TableRow<>();
                 row.setOnMouseClicked(event -> {
@@ -98,25 +101,44 @@ public class SearchModelsClientController extends Controller implements Initiali
         }
     }
 
+    /**
+     * Change the scene to START when the controller is opened.
+     */
     @Override
     public void onOpen(Object input) throws IOException {
 
     }
 
+    /**
+     * Do something when the controller is going to close.
+     */
     @Override
     public void onClose(Object output) {
 
     }
 
+    /**
+     * Navigates to the user settings view.
+     * @throws IOException If an I/O error occurs.
+     */
     public void toUserSettings() throws IOException {
         App.currentController.changeScene(Scenes.USERSETTINGS, null);
     }
 
+
+    /**
+     * Navigates back to the client home view.
+     * @throws IOException If an I/O error occurs.
+     */
     @FXML
     private void toGoBack() throws IOException {
         App.currentController.changeScene(Scenes.CLIENTHOME, null);
     }
 
+    /**
+     * Performs a search for models based on the entered text.
+     * @throws IOException If an I/O error occurs.
+     */
     @FXML
     private void searchModel() throws IOException {
         searchSingleton.getInstance(searchText.getText());

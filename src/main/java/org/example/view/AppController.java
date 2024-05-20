@@ -4,29 +4,36 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import org.example.App;
-import org.example.model.dao.ModelDAO;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Controller class for managing the main application view.
+ */
 public class AppController extends Controller implements Initializable {
-
     @FXML
     private BorderPane borderPane;
     private Controller centerController;
 
+    /**
+     * Change the scene to START when the controller is opened.
+     */
     @Override
     public void onOpen(Object input) throws IOException {
-        //Al abrir este controlador que cargue main en el centro
-        changeScene(Scenes.START,null);
+        changeScene(Scenes.START, null);
     }
 
+    /**
+     * Changes the scene to the specified scene.
+     *
+     * @param scene The scene to change to.
+     * @param data  Optional data to pass to the new scene.
+     * @throws IOException If an error occurs while loading the FXML file.
+     */
     public void changeScene(Scenes scene, Object data) throws IOException {
         View view = loadFXML(scene);
         borderPane.setCenter(view.scene);
@@ -34,31 +41,29 @@ public class AppController extends Controller implements Initializable {
         this.centerController.onOpen(data);
     }
 
-    public void openModal(Scenes scene, String title,Controller parent, Object data) throws IOException {
-        View view = loadFXML(scene);
-        Stage stage = new Stage();
-        stage.setTitle(title);
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.initOwner(App.stage);
-        Scene _scene = new Scene(view.scene);
-        stage.setScene(_scene);
-        view.controller.onOpen(parent);
-        stage.showAndWait();
-        //podríamos leer que ha devuelto...
-
-    }
-
-
+    /**
+     * Do something when the controller is going to close.
+     */
     @Override
     public void onClose(Object output) {
-        //nothing to do
+
     }
 
+    /**
+     * Initializer for some aspects.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
     }
 
+    /**
+     * Loads the FXML file for the specified scene.
+     *
+     * @param scenes The scene to load.
+     * @return The loaded view containing the scene and controller.
+     * @throws IOException If an error occurs while loading the FXML file.
+     */
     public static View loadFXML(Scenes scenes) throws IOException {
         String url = scenes.getURL();
         System.out.println(url);
@@ -66,13 +71,16 @@ public class AppController extends Controller implements Initializable {
         Parent p = loader.load();
         Controller c = loader.getController();
         View view = new View();
-        view.scene=p;
-        view.controller=c;
+        view.scene = p;
+        view.controller = c;
         return view;
     }
 
+    /**
+     * Closes the application.
+     */
     @FXML
-    private void closeApp(){
+    private void closeApp() {
         System.exit(0);
     }
 }

@@ -6,22 +6,29 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.view.ClientHomeController">
-   <children>
-      <TableView fx:id="TableView" layoutX="127.0" layoutY="50.0" prefHeight="500.0" prefWidth="750.0">
-         <columns>
-            <TableColumn fx:id="modelId" editable="false" maxWidth="75.0" minWidth="75.0" prefWidth="75.0" resizable="false" sortable="false" text="Id" />
-            <TableColumn fx:id="modelName" editable="false" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" text="Name" />
-            <TableColumn fx:id="modelPrice" editable="false" maxWidth="75.0" minWidth="75.0" prefWidth="75.0" text="Price" />
-            <TableColumn fx:id="modelRating" editable="false" maxWidth="75.0" minWidth="75.0" prefWidth="75.0" text="Rating" />
-            <TableColumn fx:id="modelModeler" editable="false" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" text="Modeler" />
-            <TableColumn fx:id="modelImage" editable="false" maxWidth="175.0" minWidth="175.0" prefWidth="175.0" text="Image" />
-         </columns>
-      </TableView>
-      <Button layoutX="19.0" layoutY="485.0" mnemonicParsing="false" onAction="#toUserSettings" text="User Settings" />
-      <Button layoutX="40.0" layoutY="523.0" mnemonicParsing="false" onAction="#close" text="Close" />
-      <Button layoutX="37.0" layoutY="449.0" mnemonicParsing="false" onAction="#toBasket" text="Basket" />
-      <TextField fx:id="searchText" layoutX="13.0" layoutY="75.0" prefHeight="26.0" prefWidth="98.0" />
-      <Button layoutX="37.0" layoutY="114.0" mnemonicParsing="false" onAction="#searchModel" text="Search" />
-   </children>
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.example.view.ClientHomeController">
+    <children>
+        <TableView fx:id="TableView" layoutX="127.0" layoutY="50.0" prefHeight="500.0" prefWidth="750.0">
+            <columns>
+                <TableColumn fx:id="modelId" editable="false" maxWidth="75.0" minWidth="75.0" prefWidth="75.0"
+                             resizable="false" sortable="false" text="Id"/>
+                <TableColumn fx:id="modelName" editable="false" maxWidth="200.0" minWidth="200.0" prefWidth="200.0"
+                             text="Name"/>
+                <TableColumn fx:id="modelPrice" editable="false" maxWidth="75.0" minWidth="75.0" prefWidth="75.0"
+                             text="Price"/>
+                <TableColumn fx:id="modelRating" editable="false" maxWidth="75.0" minWidth="75.0" prefWidth="75.0"
+                             text="Rating"/>
+                <TableColumn fx:id="modelModeler" editable="false" maxWidth="150.0" minWidth="150.0" prefWidth="150.0"
+                             text="Modeler"/>
+                <TableColumn fx:id="modelImage" editable="false" maxWidth="175.0" minWidth="175.0" prefWidth="175.0"
+                             text="Image"/>
+            </columns>
+        </TableView>
+        <Button layoutX="19.0" layoutY="485.0" mnemonicParsing="false" onAction="#toUserSettings" text="User Settings"/>
+        <Button layoutX="40.0" layoutY="523.0" mnemonicParsing="false" onAction="#close" text="Close"/>
+        <Button layoutX="37.0" layoutY="449.0" mnemonicParsing="false" onAction="#toBasket" text="Basket"/>
+        <TextField fx:id="searchText" layoutX="13.0" layoutY="75.0" prefHeight="26.0" prefWidth="98.0"/>
+        <Button layoutX="37.0" layoutY="114.0" mnemonicParsing="false" onAction="#searchModel" text="Search"/>
+    </children>
 </AnchorPane>

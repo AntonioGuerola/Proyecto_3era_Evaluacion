@@ -1,12 +1,9 @@
 package org.example.test.User;
 
-
 import org.example.model.dao.UserDAO;
 import org.example.model.entity.*;
 
 import java.time.LocalDate;
-
-
 
 public class TestInsert {
     public static void main(String[] args) {
@@ -21,7 +18,6 @@ public class TestInsert {
         System.out.println(moDAO.save(mo3));
         System.out.println(moDAO.save(mo4));
         System.out.println(moDAO.save(mo5));
-
         UserDAO<Client> cliDAO = new UserDAO<>(Client.class);
         Client cli1 = new Client("antonio02", "joseEnrique", "jose", "garcía", "litovaina@gmail.com", LocalDate.now(), null);
         Client cli2 = new Client("pikagame", "brush789", "ivan", "antunez", "nobitanobi@gmail.com", LocalDate.now(), null);
